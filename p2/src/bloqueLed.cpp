@@ -25,10 +25,8 @@ void off(bloqueLed &b, int pos){
 bool get(bloqueLed b, int pos){
 	unsigned char MASK = 1;
 	MASK << pos-1;
-	b << pos-1;
-	b >> pos-1;
-	b << pos-1;
-	if (b==MASK)
+	
+	if (b|MASK!=0)
 		return true;
 	else
 		return false;
