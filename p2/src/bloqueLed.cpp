@@ -28,7 +28,7 @@ bool get(bloqueLed b, int pos){
 
 // Carlos
 void print(bloqueLed b){
-
+  printf("%b\n", b);
 }
 
 // Juanda
