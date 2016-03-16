@@ -1,13 +1,52 @@
 /**
 @file
-@author Carlos Campos
+@author Carlos Campos, Juan David Vargas Jimenez
 @date 16 de marzo de 2015
 @brief Funciones de manejo de bloqueLeds
 */
 
-/**
-@brief enciende el LED @p pos del @c bloqueLed @p b
-@param b el @c bloqueLed cuyo LED se quiere activar
-@param pos 	el LED dentro de @p b que se quiere activar (0 m�s a la derecha)
-*/
-void on(bloqueLed &b, int pos);
+#include "bloqueLed.h"
+#include <iostream>
+
+using namespace std;
+
+void on(bloqueLed &b, int pos){
+
+}
+
+
+void off(bloqueLed &b, int pos){
+
+}
+
+
+bool get(bloqueLed b, int pos){
+
+}
+
+
+void print(bloqueLed b){
+
+}
+
+
+void encender(bloqueLed &b){
+
+}
+
+
+void apagar(bloqueLed &b){
+
+}
+
+void asignar(bloqueLed &b, const bool v[]){
+
+}
+
+void volcar(bloqueLed b, bool v[]){
+
+}
+
+void encendidos(bloqueLed b, int posic[], int &cuantos){
+
+}
