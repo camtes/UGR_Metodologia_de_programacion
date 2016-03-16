@@ -12,6 +12,9 @@ bin/central: $(OBJ)/test.o $(LIB)/libLed.a
 lib/libLed.a: $(OBJ)/bloqueLed.o
 	ar rsv $(LIB)/libLed.a $(OBJ)/bloqueLed.o
 
+obj/bloqueLed.o: $(SRC)/bloqueLed.cpp
+	g++ -c $(SRC)/bloqueLed.cpp -o $(OBJ)/bloqueLed.o -Iinclude/
+
 obj/test.o: $(SRC)/test.cpp $(INC)/bloqueLed.h
 	g++ -c $(SRC)/test.cpp -o $(OBJ)/bloqueLed.o -Iinclude/
 
