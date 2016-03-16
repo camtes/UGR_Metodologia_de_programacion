@@ -9,6 +9,9 @@ using namespace std;
 
 // Juanda
 void on(bloqueLed &b, int pos){
+	unsigned char MASK = 1;
+	MASK << pos-1;
+	b = b | MASK;
 
 }
 
@@ -23,7 +26,15 @@ void off(bloqueLed &b, int pos){
 
 // Juanda
 bool get(bloqueLed b, int pos){
-
+	unsigned char MASK = 1;
+	MASK << pos-1;
+	b << pos-1;
+	b >> pos-1;
+	b << pos-1;
+	if (b==MASK)
+		return true;
+	else
+		return false;
 }
 
 // Carlos
