@@ -38,7 +38,7 @@ void encender(bloqueLed &b){
 
 // Carlos
 void apagar(bloqueLed &b){
-
+  b = 0;
 }
 
 // Juanda
@@ -48,7 +48,17 @@ void asignar(bloqueLed &b, const bool v[]){
 
 // Carlos
 void volcar(bloqueLed b, bool v[]){
-
+  // si es diferente de 0 pa lante
+  unsigned char MASK = 1;
+  for (int i=0 ; i<8; i++) {
+    MASK = MASK << i;
+    if (b & MASK > 0) {
+      v[i] = true;
+    }
+    else {
+      v[i] = false;
+    }
+  }
 }
 
 // Juanda
