@@ -16,6 +16,9 @@ void on(bloqueLed &b, int pos){
 void off(bloqueLed &b, int pos){
   unsigned char MASK = 1;
   MASK << pos-1;
+
+  MASK = ~MASK;
+  b = b & MASK;
 }
 
 // Juanda
