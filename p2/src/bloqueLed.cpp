@@ -10,16 +10,18 @@ using namespace std;
 
 // Juanda
 void on(bloqueLed &b, int pos){
-	unsigned char mask = 1;
-	if (pos > 0)
-		mask = mask << pos;
 
-	b = b | mask;
+	bloqueLed mask;
+
+	if((pos>=0) && (pos<8)) {
+		mask = 0x1 << pos;
+		b = b | mask;
+	}
 }
 
 // Carlos
 void off(bloqueLed &b, int pos){
-  unsigned char mask = 1 << pos;
+  bloqueLed mask = 0x01 << pos;
   mask = ~mask;
   b = b & mask;
 }
@@ -28,7 +30,7 @@ void off(bloqueLed &b, int pos){
 bool get(bloqueLed b, int pos){
 	unsigned char mask = 1 << pos;
 
-	if (b & mask != 0)
+	if ((b & mask) != 0)
 		return true;
 	else
 		return false;
@@ -36,7 +38,7 @@ bool get(bloqueLed b, int pos){
 
 // Juanda
 void encender(bloqueLed &b){
-	b = 1;
+	b = 255;
 }
 
 // Carlos
@@ -72,7 +74,7 @@ void encendidos(bloqueLed b, int posic[], int &cuantos){
 // Carlos
 string bloqueLedToString(bloqueLed b) {
     string bloque;
-    for (int i = 0; i < 8; i++) {
+    for (int i = 7; i >= 0; i--) {
         if (get(b, i)) {
             bloque = bloque + '1';
         } else {

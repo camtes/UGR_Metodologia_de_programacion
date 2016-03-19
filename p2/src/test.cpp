@@ -39,7 +39,6 @@ int main(){
     apagar(b);
     cout << bloqueLedToString(b) << endl;
 
-
     cout << "\nAhora la animacion\nEjemplo 1 \n";
     // aqui debes escribir las instrucciones para que se muestre
     // el primer ejemplo de animacion.
