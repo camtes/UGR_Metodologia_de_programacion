@@ -1,5 +1,8 @@
 /**
-Creado por Carlos Campos, Juan David Vargas Jimenez
+* Creado por Carlos Campos, Juan David Vargas Jimenez
+*
+* Metodología de la programación
+* Práctica 2
 */
 
 #include "bloqueLed.h"
@@ -8,7 +11,6 @@ Creado por Carlos Campos, Juan David Vargas Jimenez
 
 using namespace std;
 
-// Juanda
 void on(bloqueLed &b, int pos){
 
 	bloqueLed mask;
@@ -19,14 +21,12 @@ void on(bloqueLed &b, int pos){
 	}
 }
 
-// Carlos
 void off(bloqueLed &b, int pos){
   bloqueLed mask = 1 << pos;
   mask = ~mask;
   b = b & mask;
 }
 
-// Juanda
 bool get(bloqueLed b, int pos){
 	unsigned char mask = 1 << pos;
 
@@ -36,24 +36,22 @@ bool get(bloqueLed b, int pos){
 		return false;
 }
 
-// Juanda
 void encender(bloqueLed &b){
 	b = 255;
 }
 
-// Carlos
 void apagar(bloqueLed &b){
   b = 0;
 }
 
-// Juanda
 void asignar(bloqueLed &b, const bool v[]){
-
+	for (int i=0; i<8; i++) {
+		if (v[i])
+			on(b,i);
+	}
 }
 
-// Carlos
 void volcar(bloqueLed b, bool v[]){
-  // si es diferente de 0 pa lante
   unsigned char mask = 1;
   for (int i=0 ; i<8; i++) {
     mask = mask << i;
@@ -66,15 +64,20 @@ void volcar(bloqueLed b, bool v[]){
   }
 }
 
-// Juanda
 void encendidos(bloqueLed b, int posic[], int &cuantos){
+	cuantos = 0;
 
+	for (int i=0; i<8; i++) {
+		if (get(b,i)) {
+				posic[cuantos] = i;
+				cuantos++;
+		}
+	}
 }
 
-// Carlos
 string bloqueLedToString(bloqueLed b) {
     string bloque;
-    for (int i = 7; i >= 0; i--) {
+    for (int i = 0; i < 8; i++) {
         if (get(b, i)) {
             bloque = bloque + '1';
         } else {

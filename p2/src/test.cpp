@@ -25,7 +25,7 @@ int main(){
     cout << bloqueLedToString(b) << endl;
 
     cout << "\nLos LEDs encendidos estan en las posiciones: ";
-    //encendidos(b,posiciones, size);
+    encendidos(b,posiciones, size);
     for(int i=0; i< size; i++)
         cout << posiciones[i] << ",";
 
@@ -48,7 +48,17 @@ int main(){
     }
 
     cout << "\n\nEjemplo 2 \n";
-    // aqui debes escribir las instrucciones para que se muestre
-    // el segundo ejemplo de animacion.
+    encender(b);
+    for (int i=0; i<9; i++) {
+      cout << i << " | "<< bloqueLedToString(b) << endl;
 
+      if (i<4) {
+        off(b,i);
+        off(b,7-i);
+      }
+      else {
+        on(b,i);
+        on(b,j);
+      }
+    }
 }
