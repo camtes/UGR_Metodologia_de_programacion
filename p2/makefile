@@ -4,23 +4,23 @@ OBJ = obj
 LIB = lib
 INC = include
 
-all : $(BIN)/boqueLed
+all : $(BIN)/bloqueLed
 
-bin/central: $(OBJ)/test.o $(LIB)/libLed.a
-	g++ -o $(BIN)/bloqueLed $(OBJ)/central.o -Llib/ -lformas
+bin/bloqueLed: $(OBJ)/test.o $(LIB)/libled.a
+	g++ -o $(BIN)/bloqueLed $(OBJ)/test.o -Llib/ -lled
 
-lib/libLed.a: $(OBJ)/bloqueLed.o
-	ar rsv $(LIB)/libLed.a $(OBJ)/bloqueLed.o
+lib/libled.a: $(OBJ)/bloqueLed.o
+	ar rsv $(LIB)/libled.a $(OBJ)/bloqueLed.o
 
-obj/bloqueLed.o: $(SRC)/bloqueLed.cpp
+obj/bloqueLed.o: $(SRC)/bloqueLed.cpp  $(INC)/bloqueLed.h
 	g++ -c $(SRC)/bloqueLed.cpp -o $(OBJ)/bloqueLed.o -Iinclude/
 
 obj/test.o: $(SRC)/test.cpp $(INC)/bloqueLed.h
-	g++ -c $(SRC)/test.cpp -o $(OBJ)/bloqueLed.o -Iinclude/
+	g++ -c $(SRC)/test.cpp -o $(OBJ)/test.o -Iinclude/
 
 clean:
 	echo "Limpiando..."
 	rm $(OBJ)/*.o lib/lib*.a
 
 mrproper: clean
-	rm $(BIN)/central
+	rm $(BIN)/bloqueLed

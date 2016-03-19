@@ -4,45 +4,39 @@ Creado por Carlos Campos, Juan David Vargas Jimenez
 
 #include "bloqueLed.h"
 #include <iostream>
+#include <stdio.h>
 
 using namespace std;
 
 // Juanda
 void on(bloqueLed &b, int pos){
-	unsigned char MASK = 1;
-	MASK << pos-1;
-	b = b | MASK;
+	unsigned char mask = 1;
+	if (pos > 0)
+		mask = mask << pos;
 
+	b = b | mask;
 }
 
 // Carlos
 void off(bloqueLed &b, int pos){
-  unsigned char MASK = 1;
-  MASK << pos-1;
-
-  MASK = ~MASK;
-  b = b & MASK;
+  unsigned char mask = 1 << pos;
+  mask = ~mask;
+  b = b & mask;
 }
 
 // Juanda
 bool get(bloqueLed b, int pos){
-	unsigned char MASK = 1;
-	MASK << pos-1;
-	
-	if (b|MASK!=0)
+	unsigned char mask = 1 << pos;
+
+	if (b & mask != 0)
 		return true;
 	else
 		return false;
 }
 
-// Carlos
-void print(bloqueLed b){
-  printf("%b\n", b);
-}
-
 // Juanda
 void encender(bloqueLed &b){
-
+	b = 1;
 }
 
 // Carlos
@@ -58,10 +52,10 @@ void asignar(bloqueLed &b, const bool v[]){
 // Carlos
 void volcar(bloqueLed b, bool v[]){
   // si es diferente de 0 pa lante
-  unsigned char MASK = 1;
+  unsigned char mask = 1;
   for (int i=0 ; i<8; i++) {
-    MASK = MASK << i;
-    if (b & MASK > 0) {
+    mask = mask << i;
+    if (b & mask > 0) {
       v[i] = true;
     }
     else {
@@ -76,4 +70,15 @@ void encendidos(bloqueLed b, int posic[], int &cuantos){
 }
 
 // Carlos
-// el bloqueLedToString pa' mi
+string bloqueLedToString(bloqueLed b) {
+    string bloque;
+    for (int i = 0; i < 8; i++) {
+        if (get(b, i)) {
+            bloque = bloque + '1';
+        } else {
+            bloque = bloque + '0';
+        }
+    }
+
+    return bloque;
+}
