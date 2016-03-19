@@ -14,14 +14,14 @@ void on(bloqueLed &b, int pos){
 	bloqueLed mask;
 
 	if((pos>=0) && (pos<8)) {
-		mask = 0x1 << pos;
+		mask = 1 << pos;
 		b = b | mask;
 	}
 }
 
 // Carlos
 void off(bloqueLed &b, int pos){
-  bloqueLed mask = 0x01 << pos;
+  bloqueLed mask = 1 << pos;
   mask = ~mask;
   b = b & mask;
 }

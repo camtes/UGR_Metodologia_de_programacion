@@ -40,8 +40,12 @@ int main(){
     cout << bloqueLedToString(b) << endl;
 
     cout << "\nAhora la animacion\nEjemplo 1 \n";
-    // aqui debes escribir las instrucciones para que se muestre
-    // el primer ejemplo de animacion.
+    for (int i=8; i>=0; i--) {
+      encender(b);
+      off(b,i);
+
+      cout << bloqueLedToString(b) << endl;
+    }
 
     cout << "\n\nEjemplo 2 \n";
     // aqui debes escribir las instrucciones para que se muestre
