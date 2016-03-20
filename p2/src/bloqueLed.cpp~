@@ -1,67 +1,61 @@
 /**
-Creado por Carlos Campos, Juan David Vargas Jimenez
+* Creado por Carlos Campos, Juan David Vargas Jimenez
+*
+* Metodología de la programación
+* Práctica 2
 */
 
 #include "bloqueLed.h"
 #include <iostream>
+#include <stdio.h>
 
 using namespace std;
 
-// Juanda
 void on(bloqueLed &b, int pos){
-	unsigned char MASK = 1;
-	MASK << pos-1;
-	b = b | MASK;
 
+	bloqueLed mask;
+
+	if((pos>=0) && (pos<8)) {
+		mask = 1 << pos;
+		b = b | mask;
+	}
 }
 
-// Carlos
 void off(bloqueLed &b, int pos){
-  unsigned char MASK = 1;
-  MASK << pos-1;
-
-  MASK = ~MASK;
-  b = b & MASK;
+  bloqueLed mask = 1 << pos;
+  mask = ~mask;
+  b = b & mask;
 }
 
-// Juanda
 bool get(bloqueLed b, int pos){
-	unsigned char MASK = 1;
-	MASK << pos-1;
-	
-	if (b|MASK!=0)
+	unsigned char mask = 1 << pos;
+
+	if ((b & mask) != 0)
 		return true;
 	else
 		return false;
 }
 
-// Carlos
-void print(bloqueLed b){
-  printf("%b\n", b);
-}
-
-// Juanda
 void encender(bloqueLed &b){
-
+	b = 255;
 }
 
-// Carlos
 void apagar(bloqueLed &b){
   b = 0;
 }
 
-// Juanda
 void asignar(bloqueLed &b, const bool v[]){
-
+	for (int i=0; i<8; i++) {
+		if (v[i])
+			on(b,i);
+	}
 }
 
-// Carlos
 void volcar(bloqueLed b, bool v[]){
-  // si es diferente de 0 pa lante
-  unsigned char MASK = 1;
+  unsigned char mask = 1;
   for (int i=0 ; i<8; i++) {
-    MASK = MASK << i;
-    if (b & MASK > 0) {
+    mask = mask << i;
+    if (b & mask > 0) {
       v[i] = true;
     }
     else {
@@ -70,10 +64,26 @@ void volcar(bloqueLed b, bool v[]){
   }
 }
 
-// Juanda
 void encendidos(bloqueLed b, int posic[], int &cuantos){
+	cuantos = 0;
 
+	for (int i=0; i<8; i++) {
+		if (get(b,i)) {
+				posic[cuantos] = i;
+				cuantos++;
+		}
+	}
 }
 
-// Carlos
-// el bloqueLedToString pa' mi
+string bloqueLedToString(bloqueLed b) {
+    string bloque;
+    for (int i = 0; i < 8; i++) {
+        if (get(b, i)) {
+            bloque = bloque + '1';
+        } else {
+            bloque = bloque + '0';
+        }
+    }
+
+    return bloque;
+}

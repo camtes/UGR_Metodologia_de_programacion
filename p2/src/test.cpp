@@ -13,6 +13,7 @@ int main(){
     cout << "\nBloque apagado LEDs: ";
     cout << bloqueLedToString(b) << endl;
     // enciendo dos LEDs
+		cout << "Enciendo el 5 y el 7 mediante asignacion: ";
     on(b,5);
     on(b,7);
     cout << bloqueLedToString(b) << endl;
@@ -40,7 +41,7 @@ int main(){
     cout << bloqueLedToString(b) << endl;
 
     cout << "\nAhora la animacion\nEjemplo 1 \n";
-    for (int i=0; i<=8; i++) {
+    for (int i=8; i>=0; i--) {
       encender(b);
       off(b,i);
 
@@ -48,8 +49,8 @@ int main(){
     }
 
     cout << "\n\nEjemplo 2 \n";
-		int j = 0;
     encender(b);
+	int j = 4;
     for (int i=0; i<9; i++) {
       cout << i << " | "<< bloqueLedToString(b) << endl;
 
@@ -58,8 +59,9 @@ int main(){
         off(b,7-i);
       }
       else {
-        on(b,i);
-        on(b,j);
+	on(b,j);
+        on(b,7-i);
+        j++;
       }
     }
 }

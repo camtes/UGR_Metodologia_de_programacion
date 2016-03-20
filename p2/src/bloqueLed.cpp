@@ -77,7 +77,7 @@ void encendidos(bloqueLed b, int posic[], int &cuantos){
 
 string bloqueLedToString(bloqueLed b) {
     string bloque;
-    for (int i = 0; i < 8; i++) {
+    for (int i = 7; i >= 0; i--) {
         if (get(b, i)) {
             bloque = bloque + '1';
         } else {
