@@ -47,8 +47,7 @@ int main(){
       cout << bloqueLedToString(b) << endl;
     }
 
-    cout << "\n\nEjemplo 2 \n";
-		int j = 0;
+    /*cout << "\n\nEjemplo 2 \n";
     encender(b);
     for (int i=0; i<9; i++) {
       cout << i << " | "<< bloqueLedToString(b) << endl;
@@ -61,5 +60,5 @@ int main(){
         on(b,i);
         on(b,j);
       }
-    }
+    }*/
 }
