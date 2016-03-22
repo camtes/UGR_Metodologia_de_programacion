@@ -31,3 +31,6 @@
 *.pdf
 *.DS_Store
 *.ini
+*.odt
+*.zip
+bin/*

@@ -4,10 +4,10 @@ OBJ = obj
 LIB = lib
 INC = include
 
-all : $(BIN)/bloqueLed
+all : $(BIN)/main
 
-bin/bloqueLed: $(OBJ)/test.o $(LIB)/libled.a
-	g++ -o $(BIN)/bloqueLed $(OBJ)/test.o -Llib/ -lled
+bin/main: $(OBJ)/test.o $(LIB)/libled.a
+	g++ -o $(BIN)/main $(OBJ)/test.o -Llib/ -lled
 
 lib/libled.a: $(OBJ)/bloqueLed.o
 	ar rsv $(LIB)/libled.a $(OBJ)/bloqueLed.o
@@ -23,4 +23,4 @@ clean:
 	rm $(OBJ)/*.o lib/lib*.a
 
 mrproper: clean
-	rm $(BIN)/bloqueLed
+	rm $(BIN)/*

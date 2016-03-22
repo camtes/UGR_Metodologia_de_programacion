@@ -52,7 +52,7 @@ int main(){
     encender(b);
 	int j = 4;
     for (int i=0; i<9; i++) {
-      cout << i << " | "<< bloqueLedToString(b) << endl;
+      cout << bloqueLedToString(b) << endl;
 
       if (i<4) {
         off(b,i);
