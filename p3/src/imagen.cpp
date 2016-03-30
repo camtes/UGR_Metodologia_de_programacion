@@ -15,12 +15,11 @@ Imagen(int filas, int columnas) {
 }
 
 // Juanda
-void crear(int filas, int columnas){	
+void crear(int filas, int columnas){
 
 	for (int i=0;i>=filas;i++){
 		for (int j=0;j>=columnas;j++){
 			set(i,j,0);
-
 		}
 	}
 }
@@ -54,7 +53,7 @@ void setPos(int i, byte v) {
 
 // Juanda
 byte getPos(int i){
-
+  return datos[i];
 }
 
 // Carlos
