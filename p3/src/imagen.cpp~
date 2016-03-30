@@ -33,7 +33,7 @@ void set(int y, int x, byte v);
 byte get(int y, int x){
 	int col;
 	col=columnas();
-	return (y*col)+x;
+	return (y*col)+x
 }
 
 // Carlos
