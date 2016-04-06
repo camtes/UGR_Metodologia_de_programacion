@@ -60,17 +60,20 @@ byte getPos(int i){
 bool leerImagen(const char nombreFichero[]) {
   bool result = false;
 
-  TipoImagen tipo = infoPGM(nombreFichero[], nfilas, ncolumnas)
+  TipoImagen tipo = infoPGM(nombreFichero, nfilas, ncolumnas)
   if (tipo != IMG_DESCONOCIDO) {
     if (ncolumnas*nfilas < MAXDATOS) {
-      result = true;
+      return leerPGMBinario (nombreFichero, datos, nfilas, ncolumnas);
     }
+  }
+}
+
+bool escribirImagen(const char nombreFichero[], bool esBinario){
+  bool result = false;
+  
+  if (esBinario) {
+    result = escribirPGMBinario(nombreFichero, datos, nfilas, ncolumnas);
   }
 
   return result;
-}
-
-// Juanda
-bool escribirImagen(const char nombreFichero[], bool esBinario){
-  
 }

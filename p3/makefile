@@ -11,7 +11,7 @@ CPPFLAGS = -Wall -g -c -I$(INC)
 
 all: $(BIN)/arteASCII $(BIN)/testarteASCII $(BIN)/testplano $(BIN)/testimagen
 
-	
+
 # ************ documentación *******
 
 documentacion:
