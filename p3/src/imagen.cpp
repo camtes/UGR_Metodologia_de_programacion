@@ -1,12 +1,14 @@
 #include <fstream>
 #include <string>
+#include <stdio.h>
 #include "imagen.h"
 #include "pgm.h"
 
 using namespace std;
 
+Imagen::Imagen() {}
 // Carlos
-Imagen(int filas, int columnas) {
+Imagen::Imagen(int filas, int columnas) {
   nfilas = filas;
   ncolumnas = columnas;
   for (int i=0; i<filas*columnas; i++) {
@@ -15,7 +17,7 @@ Imagen(int filas, int columnas) {
 }
 
 // Juanda
-void crear(int filas, int columnas){
+void Imagen::crear(int filas, int columnas){
 
 	for (int i=0;i>=filas;i++){
 		for (int j=0;j>=columnas;j++){
@@ -25,52 +27,52 @@ void crear(int filas, int columnas){
 }
 
 // Carlos
-int filas() {
+int Imagen::filas() {
   return nfilas;
 }
 
 // Juanda
-int columnas(){
+int Imagen::columnas(){
 	return ncolumnas;
 }
 
 // Carlos
-void set(int y, int x, byte v) {
+void Imagen::set(int y, int x, byte v) {
   datos[y*ncolumnas+x] = v;
 }
 
 // Juanda
-byte get(int y, int x){
+byte Imagen::get(int y, int x){
 	int col;
 	col=columnas();
 	return (y*col)+x;
 }
 
 // Carlos
-void setPos(int i, byte v) {
+void Imagen::setPos(int i, byte v) {
   datos[i] = v;
 }
 
 // Juanda
-byte getPos(int i){
+byte Imagen::getPos(int i){
   return datos[i];
 }
 
 // Carlos
-bool leerImagen(const char nombreFichero[]) {
+bool Imagen::leerImagen(const char nombreFichero[]) {
   bool result = false;
 
-  TipoImagen tipo = infoPGM(nombreFichero, nfilas, ncolumnas)
+  TipoImagen tipo = infoPGM(nombreFichero, nfilas, ncolumnas);
   if (tipo != IMG_DESCONOCIDO) {
-    if (ncolumnas*nfilas < MAXDATOS) {
+    if (ncolumnas*nfilas < MAXPIXELS) {
       return leerPGMBinario (nombreFichero, datos, nfilas, ncolumnas);
     }
   }
 }
 
-bool escribirImagen(const char nombreFichero[], bool esBinario){
+bool Imagen::escribirImagen(const char nombreFichero[], bool esBinario){
   bool result = false;
-  
+
   if (esBinario) {
     result = escribirPGMBinario(nombreFichero, datos, nfilas, ncolumnas);
   }
