@@ -9,7 +9,7 @@ CXX = g++
 CPPFLAGS = -Wall -g -c -I$(INC)
 
 #all: $(BIN)/arteASCII $(BIN)/testarteASCII $(BIN)/testplano $(BIN)/testimagen
-all: $(BIN)/testimagen $(BIN)/testplano $(BIN)/testarteASCII
+all: $(BIN)/testimagen $(BIN)/testplano $(BIN)/testarteASCII $(BIN)/arteASCII
 
 bin/testimagen: $(OBJ)/testimagen.o $(LIB)/libimage.a
 	g++ -o $(BIN)/testimagen $(OBJ)/testimagen.o -Llib/ -limage
@@ -19,6 +19,9 @@ bin/testplano:  $(OBJ)/testplano.o $(LIB)/libimage.a
 
 bin/testarteASCII: $(OBJ)/testarteASCII.o $(LIB)/libimage.a
 	g++ -o $(BIN)/testarteASCII $(OBJ)/testarteASCII.o -Llib/ -limage
+
+bin/arteASCII: $(OBJ)/arteASCII.o $(LIB)/libimage.a
+	g++ -o $(BIN)/arteASCII $(OBJ)/arteASCII.o -Llib/ -limage
 
 lib/libimage.a: $(OBJ)/imagen.o $(OBJ)/byte.o $(OBJ)/pgm.o
 	ar rsv $(LIB)/libimage.a $(OBJ)/imagen.o $(OBJ)/byte.o $(OBJ)/pgm.o
@@ -40,6 +43,9 @@ obj/testplano.o: $(SRC)/testplano.cpp $(INC)/imagen.h
 
 obj/testarteASCII.o: $(SRC)/testarteASCII.cpp $(INC)/imagen.h
 	g++ -c $(SRC)/testarteASCII.cpp -o $(OBJ)/testarteASCII.o -Iinclude/
+
+obj/arteASCII.o: $(SRC)/arteASCII.cpp $(INC)/imagen.h
+	g++ -c $(SRC)/arteASCII.cpp -o $(OBJ)/arteASCII.o -Iinclude/
 
 clean:
 	echo "Limpiando..."
