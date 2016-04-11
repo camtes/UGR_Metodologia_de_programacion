@@ -9,13 +9,16 @@ CXX = g++
 CPPFLAGS = -Wall -g -c -I$(INC)
 
 #all: $(BIN)/arteASCII $(BIN)/testarteASCII $(BIN)/testplano $(BIN)/testimagen
-all: $(BIN)/testimagen
+all: $(BIN)/testimagen $(BIN)/testplano
 
 bin/testimagen: $(OBJ)/testimagen.o $(LIB)/libimage.a
 	g++ -o $(BIN)/testimagen $(OBJ)/testimagen.o -Llib/ -limage
 
-lib/libimage.a: $(OBJ)/imagen.o $(OBJ)/pgm.o
-	ar rsv $(LIB)/libimage.a $(OBJ)/imagen.o $(OBJ)/pgm.o
+bin/testplano:  $(OBJ)/testplano.o $(LIB)/libimage.a
+	g++ -o $(BIN)/testplano $(OBJ)/testplano.o -Llib/ -limage
+
+lib/libimage.a: $(OBJ)/imagen.o $(OBJ)/byte.o $(OBJ)/pgm.o
+	ar rsv $(LIB)/libimage.a $(OBJ)/imagen.o $(OBJ)/byte.o $(OBJ)/pgm.o
 
 obj/imagen.o: $(SRC)/imagen.cpp  $(INC)/imagen.h
 	g++ -c $(SRC)/imagen.cpp -o $(OBJ)/imagen.o -Iinclude/
@@ -23,8 +26,14 @@ obj/imagen.o: $(SRC)/imagen.cpp  $(INC)/imagen.h
 obj/pgm.o: $(SRC)/pgm.cpp $(INC)/pgm.h
 	g++ -c $(SRC)/pgm.cpp -o $(OBJ)/pgm.o -Iinclude/
 
+obj/byte.o: $(SRC)/byte.cpp $(INC)/byte.h
+	g++ -c $(SRC)/byte.cpp -o $(OBJ)/byte.o -Iinclude/
+
 obj/testimagen.o: $(SRC)/testimagen.cpp $(INC)/imagen.h
 	g++ -c $(SRC)/testimagen.cpp -o $(OBJ)/testimagen.o -Iinclude/
+
+obj/testplano.o: $(SRC)/testplano.cpp $(INC)/imagen.h
+	g++ -c $(SRC)/testplano.cpp -o $(OBJ)/testplano.o -Iinclude/
 
 clean:
 	echo "Limpiando..."

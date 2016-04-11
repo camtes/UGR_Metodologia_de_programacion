@@ -126,6 +126,11 @@ Lee desde disco los datos de la imagen llamada @a nombreFichero y la guarda en l
 @retval false 	si se ha producido algún error en la escritura
 */
    bool escribirImagen(const char nombreFichero[], bool esBinario);
+
+
+   Imagen plano(int k);
 };
+
+
 
 #endif

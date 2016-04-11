@@ -3,10 +3,14 @@
 #include <stdio.h>
 #include "imagen.h"
 #include "pgm.h"
+#include "byte.h"
 
 using namespace std;
 
-Imagen::Imagen() {}
+Imagen::Imagen(){
+   nfilas = 0;
+   ncolumnas = 0;
+};
 // Carlos
 Imagen::Imagen(int filas, int columnas) {
   nfilas = filas;
@@ -70,7 +74,7 @@ bool Imagen::leerImagen(const char nombreFichero[]) {
   }
 }
 
-bool Imagen::escribirImagen(const char nombreFichero[], bool esBinario){
+bool Imagen::escribirImagen(const char nombreFichero[], bool esBinario) {
   bool result = false;
 
   if (esBinario) {
@@ -78,4 +82,20 @@ bool Imagen::escribirImagen(const char nombreFichero[], bool esBinario){
   }
 
   return result;
+}
+
+Imagen Imagen::plano (int k) {
+   Imagen nueva_imagen(nfilas, ncolumnas);
+   for(int i=0; i<ncolumnas; i++){
+      for(int j=0; j<nfilas; j++){
+         byte pixel = get(j,i);
+         bool is_one = getbit(pixel, k);
+         apagar(pixel);
+         if(is_one)
+            on(pixel,7);
+         nueva_imagen.set(j,i,pixel);
+      }
+   }
+
+   return nueva_imagen;
 }
