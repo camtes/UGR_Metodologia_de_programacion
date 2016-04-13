@@ -5,7 +5,7 @@
   * Permite la E/S de archivos de tipos PGM
   *
   */
-#include <iostream>
+
 #include <fstream>
 #include <string>
 #include "pgm.h"
@@ -110,17 +110,4 @@ bool escribirPGMBinario (const char nombre[], const unsigned char datos[], int f
   }
   return res;
 }
-
-
-//_______________________________________________________________________________
-bool leerPGM (const char nombre[], unsigned char datos[], int& filas, int& columnas)
-{
-}
-
-//_______________________________________________________________________________
-
-bool escribirPGMBinario (const char nombre[], const unsigned char datos[], int filas, int columnas)
-{
-}
-
 
