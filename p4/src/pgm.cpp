@@ -96,6 +96,33 @@ bool leerPGMBinario (const char nombre[], unsigned char datos[], int& filas, int
 
 // _____________________________________________________________________________
 
+
+bool leerPGM (const char nombre[], unsigned char datos[], int& filas, int& columnas)
+{
+	bool exito=false;
+	filas=0;
+	columnas=0;
+	char c;
+	ifstream f;
+	
+	f.open("gio.pgm");
+	if(LeerTipo(f)==IMG_PGM_TEXTO)
+		if (LeerCabecera (f,filas,columnas))
+			while (f.get(c)){
+				if(c==' '){
+					cout << c;
+				}else
+					cout<<(int)c;
+			}
+	cout<<endl;
+			
+	f.close();
+	f.clear();
+	return exito;
+}
+
+//_______________________________________________________________________________
+
 bool escribirPGMBinario (const char nombre[], const unsigned char datos[], int filas, int columnas)
 {
   ofstream f(nombre);
@@ -113,14 +140,9 @@ bool escribirPGMBinario (const char nombre[], const unsigned char datos[], int f
 
 
 //_______________________________________________________________________________
-bool leerPGM (const char nombre[], unsigned char datos[], int& filas, int& columnas)
+
+/*bool escribirPGM (const char nombre[], const unsigned char datos[], int filas, int columnas)
 {
 }
-
-//_______________________________________________________________________________
-
-bool escribirPGMBinario (const char nombre[], const unsigned char datos[], int filas, int columnas)
-{
-}
-
+*/
 

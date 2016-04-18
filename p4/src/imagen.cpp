@@ -67,6 +67,9 @@ bool Imagen::leerImagen(const char nombreFichero[]) {
   if (tipo == IMG_PGM_BINARIO && nfilas*ncolumnas < MAXPIXELS)
     res = leerPGMBinario (nombreFichero, datos, nfilas, ncolumnas);
 
+  if (tipo == IMG_PGM_TEXTO && nfilas*ncolumnas < MAXPIXELS)
+    res = leerPGM (nombreFichero, datos, nfilas, ncolumnas);
+
   return res;
 }
 

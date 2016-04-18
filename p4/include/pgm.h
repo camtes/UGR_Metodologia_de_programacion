@@ -76,7 +76,7 @@ bool escribirPGMBinario (const char nombre[], const unsigned char datos[], int f
   * @retval true 	si ha tenido éxito en la lectura.
   * @retval false 	si se ha producido algún error en la lectura.
   * @pre datos 		debe tener tamaño suficiente para almacenar
-  *      @a filas x @a columnas bytes de datos de la imagen.
+  * @a filas x @a columnas bytes de datos de la imagen.
   */
 
 bool leerPGM (const char nombre[], unsigned char datos[], int& filas, int& columnas);
@@ -92,7 +92,7 @@ bool leerPGM (const char nombre[], unsigned char datos[], int& filas, int& colum
   * @retval true 	si ha tenido éxito en la escritura.
   * @retval false 	si se ha producido algún error en la escritura.
   */
-bool escribirPGM (const char nombre[], const unsigned char datos[], int filas, int columnas);
+//bool escribirPGM (const char nombre[], const unsigned char datos[], int filas, int columnas);
 
 
 
