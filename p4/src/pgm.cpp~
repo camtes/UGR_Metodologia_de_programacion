@@ -107,13 +107,33 @@ bool leerPGM (const char nombre[], unsigned char datos[], int& filas, int& colum
 	
 	f.open("gio.pgm");
 	if(LeerTipo(f)==IMG_PGM_TEXTO)
-		if (LeerCabecera (f,filas,columnas))
+		if (LeerCabecera (f,filas,columnas)){
+			int tamanho = filas*columnas;
+			datos [tamanho];
+			int cont=0;
+			int acumulador =0;
+			int entero;
 			while (f.get(c)){
+				
 				if(c==' '){
-					cout << c;
+					datos[cont]=(char)acumulador;
+					cont++;
+					acumulador = 0;
 				}else
-					cout<<(int)c;
+					entero = ((int)c)-48;
+					acumulador = (acumulador*10)+entero;
 			}
+		/*for (int cont=0; cont < filas*columnas; cont++){
+			cout << cont << "-" <<datos[cont] << " ";
+		}*/
+		exito=true;
+		/*if (f.read(reinterpret_cast<char *>(datos),filas*columnas*3))
+		for(int cont=0; cont<(filas*columnas*3);cont++){
+			cout<<datos[cont];
+		}
+		exito=true;
+		cout<<"-----------------"<<filas<<"----------------"<<columnas;*/
+		}
 	cout<<endl;
 			
 	f.close();
@@ -141,8 +161,22 @@ bool escribirPGMBinario (const char nombre[], const unsigned char datos[], int f
 
 //_______________________________________________________________________________
 
-/*bool escribirPGM (const char nombre[], const unsigned char datos[], int filas, int columnas)
+bool escribirPGM (const char nombre[], const unsigned char datos[], int filas, int columnas)
 {
+	ofstream f;
+	
+	bool res = true;
+	//f.open();
+	if(f) {
+		f << "P2" << endl;
+		f << columnas << ' ' << filas << endl;
+		f << 255 << endl;
+		f.write(reinterpret_cast<const char *>(datos),filas*columnas);
+		if (!f) res=false;
+  	}
+	f.close();
+  return res;
+
 }
-*/
+
 

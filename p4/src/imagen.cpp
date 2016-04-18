@@ -78,6 +78,8 @@ bool Imagen::escribirImagen(const char nombreFichero[], bool esBinario) {
 
   if (esBinario)
     res = escribirPGMBinario(nombreFichero, datos, nfilas, ncolumnas);
+  else
+    res = escribirPGMBinario(nombreFichero, datos, nfilas, ncolumnas);
 
   return res;
 }

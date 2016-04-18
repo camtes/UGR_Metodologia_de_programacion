@@ -10,7 +10,7 @@ int main(){
     Imagen origen, plano;
 
 	// Leer la imagen giotexto.pgm
-	if (!origen.leerImagen("gio.pgm")){
+	if (!origen.leerImagen("imagenes/giotexto.pgm")){
 		cerr << "error leyendo imagenes/giotexto.pgm\n";
 		return 1;
 	}
