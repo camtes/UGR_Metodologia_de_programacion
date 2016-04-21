@@ -22,7 +22,7 @@ int main(){
 	}
 
 	// Leer la imagen lena.pgm
-	if (!origen.leerImagen("gio.pgm")){
+	if (!origen.leerImagen("imagenes/lena.pgm")){
 		cerr << "error leyendo imagenes/lena.pgm\n";
 		return 1;
 	}

@@ -119,13 +119,15 @@ bool leerPGM (const char nombre[], unsigned char datos[], int& filas, int& colum
 					datos[cont]=(char)acumulador;
 					cont++;
 					acumulador = 0;
-				}else
+				}else{
 					entero = ((int)c)-48;
-					acumulador = (acumulador*10)+entero;
+					acumulador = (acumulador*10)+entero;}
 			}
-		/*for (int cont=0; cont < filas*columnas; cont++){
-			cout << cont << "-" <<datos[cont] << " ";
-		}*/
+		/*
+		for (int cont=0; cont < filas*columnas; cont++){
+			cout << cont << "-" <<(int)datos[cont] << " ";
+		}
+		*/
 		exito=true;
 		/*if (f.read(reinterpret_cast<char *>(datos),filas*columnas*3))
 		for(int cont=0; cont<(filas*columnas*3);cont++){
@@ -137,7 +139,7 @@ bool leerPGM (const char nombre[], unsigned char datos[], int& filas, int& colum
 	cout<<endl;
 			
 	f.close();
-	f.clear();
+	//f.clear();
 	return exito;
 }
 
@@ -163,6 +165,10 @@ bool escribirPGMBinario (const char nombre[], const unsigned char datos[], int f
 
 bool escribirPGM (const char nombre[], const unsigned char datos[], int filas, int columnas)
 {
+
+	/*for (int cont=0; cont < filas*columnas; cont++){
+			cout << cont << "-" <<(int)datos[cont] << " ";
+		}*/
 	ofstream f;
 	
 	bool res = true;
@@ -171,12 +177,15 @@ bool escribirPGM (const char nombre[], const unsigned char datos[], int filas, i
 		f << "P2" << endl;
 		f << columnas << ' ' << filas << endl;
 		f << 255 << endl;
-		f.write(reinterpret_cast<const char *>(datos),filas*columnas);
+		//f.write(reinterpret_cast<const char *>(datos),filas*columnas);
+		for (int i=0; i<filas*columnas;i++){
+			f << (int)datos[i]<<' ';
+		}
 		if (!f) res=false;
   	}
-	f.close();
+	//f.close();
   return res;
 
-}
+} 
 
 
