@@ -5,15 +5,15 @@
 * Práctica 2
 */
 
-#include "bloqueLed.h"
+#include "byte.h"
 #include <iostream>
 #include <stdio.h>
 
 using namespace std;
 
-void on(bloqueLed &b, int pos){
+void on(byte &b, int pos){
 
-	bloqueLed mask;
+	byte mask;
 
 	if((pos>=0) && (pos<8)) {
 		mask = 1 << pos;
@@ -21,13 +21,13 @@ void on(bloqueLed &b, int pos){
 	}
 }
 
-void off(bloqueLed &b, int pos){
-  bloqueLed mask = 1 << pos;
+void off(byte &b, int pos){
+  byte mask = 1 << pos;
   mask = ~mask;
   b = b & mask;
 }
 
-bool get(bloqueLed b, int pos){
+bool getbit(byte b, int pos){
 	unsigned char mask = 1 << pos;
 
 	if ((b & mask) != 0)
@@ -36,22 +36,22 @@ bool get(bloqueLed b, int pos){
 		return false;
 }
 
-void encender(bloqueLed &b){
+void encender(byte &b){
 	b = 255;
 }
 
-void apagar(bloqueLed &b){
+void apagar(byte &b){
   b = 0;
 }
 
-void asignar(bloqueLed &b, const bool v[]){
+void asignar(byte &b, const bool v[]){
 	for (int i=0; i<8; i++) {
 		if (v[i])
 			on(b,i);
 	}
 }
 
-void volcar(bloqueLed b, bool v[]){
+void volcar(byte b, bool v[]){
   unsigned char mask = 1;
   for (int i=0 ; i<8; i++) {
     mask = mask << i;
@@ -64,21 +64,21 @@ void volcar(bloqueLed b, bool v[]){
   }
 }
 
-void encendidos(bloqueLed b, int posic[], int &cuantos){
+void encendidos(byte b, int posic[], int &cuantos){
 	cuantos = 0;
 
 	for (int i=0; i<8; i++) {
-		if (get(b,i)) {
+		if (getbit(b,i)) {
 				posic[cuantos] = i;
 				cuantos++;
 		}
 	}
 }
 
-string bloqueLedToString(bloqueLed b) {
+string byteToString(byte b) {
     string bloque;
     for (int i = 7; i >= 0; i--) {
-        if (get(b, i)) {
+        if (getbit(b, i)) {
             bloque = bloque + '1';
         } else {
             bloque = bloque + '0';
