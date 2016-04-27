@@ -12,8 +12,8 @@ int main(){
     Imagen origen;
 
     // Leer la imagen gio.pgm
-    if (!origen.leerImagen("imagenes/gio.pgm")){
-	   cerr << "error leyendo imagenes/gio.pgm\n";
+    if (!origen.leerImagen("gio.pgm")){
+	   cerr << "error leyendo gio.pgm\n";
 	   return 1;
     }
 
