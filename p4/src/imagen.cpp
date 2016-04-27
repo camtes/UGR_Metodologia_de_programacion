@@ -2,9 +2,9 @@
 #include <string>
 #include <stdio.h>
 #include <cstring>
-#include "imagen.h"
-#include "pgm.h"
-#include "byte.h"
+#include "../include/imagen.h"
+#include "../include/pgm.h"
+#include "../include/byte.h"
 
 using namespace std;
 

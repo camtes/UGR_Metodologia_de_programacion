@@ -1,5 +1,5 @@
 #include<iostream>
-#include<imagen.h>
+#include "../include/imagen.h"
 
 using namespace std;
 
@@ -17,6 +17,11 @@ int main() {
   if (!origen.leerImagen(file_path)) {
     cout << "Error leyendo imágen" << endl;
   }
+
+  // leer el archivo de grises.
+  if (!origen.leerFichero(file_path)){
+		cerr << "error leyendo fichero\n";
+		return 1;
 
   if (origen.aArteASCII(ascii_chars, ascii_art, 4501))
     cout << ascii_art;

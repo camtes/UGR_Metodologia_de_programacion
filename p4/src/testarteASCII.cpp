@@ -1,6 +1,6 @@
 //lee imagenes/gio.pgm y la convierte en ascii con los caracteres "@%#*+=-:. "
 #include<iostream>
-#include<imagen.h>
+#include "../include/imagen.h"
 
 using namespace std;
 
@@ -16,10 +16,7 @@ int main(){
 	   cerr << "error leyendo gio.pgm\n";
 	   return 1;
     }
-	// leer el archivo de grises.
-	if (!origen.leerFichero("grises.txt")){
-		cerr << "error leyendo grises.txt\n";
-		return 1;
+
 
     cout << "\nLa imagen en arte ASCII es:\n";
     if(origen.aArteASCII(grises, arteASCII, 4500))
