@@ -1,32 +1,62 @@
 #include <string>
 #include <fstream>
-#include "lista.h"
+#include "../lista.h"
 
 using namespace std;
 
 Lista::Lista(){
-
+	cabecera = 0;
 }
    
 Lista::Lista(string valor){
-
+	cabecera = new Celda();
+  cabecera->dato = valor;
+  cabecera->siguiente = 0;
 }
 	
 
 void Lista::destruir(){
-
+	delete cabecera;
 }  
 
 void Lista::insertar(string valor){
-		
+
+  if (cabecera != 0) {
+    Celda *aux = cabecera;
+
+    while (aux->siguiente != 0) {
+      aux = aux->siguiente;
+    }
+
+    aux->dato = valor;
+    aux->siguiente = 0;
+  }
+  else
+    Lista(valor);
+
+
 }
 
 string Lista::getCelda(int pos) const{
+  Celda * aux = cabecera;
 
+  for (int i=0; i<pos; i++) {
+    aux = aux->siguiente;
+  }
+
+  return aux->dato;
 }
 
 int Lista::longitud() const{
+  int cont = 0;
+  Celda * aux = cabecera;
 
+  while(cabecera->siguiente != 0) {
+    aux = aux->siguiente;
+    cont++;
+  }
+
+  return cont;
 }
 
 /**

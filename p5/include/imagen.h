@@ -118,7 +118,6 @@ Lee desde disco los datos de la imagen llamada @a nombreFichero y la guarda en l
 */
    bool leerImagen(const char nombreFichero[]);
 
-
 /**
 @brief Guarda una imagen desde un fichero
 @param nombreFichero nombre del fichero que contiene la imagen

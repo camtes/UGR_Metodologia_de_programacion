@@ -2,9 +2,10 @@
 #include <string>
 #include <stdio.h>
 #include <cstring>
-#include "imagen.h"
-#include "pgm.h"
-#include "byte.h"
+#include <iostream>
+#include "../include/imagen.h"
+#include "../include/pgm.h"
+#include "../include/byte.h"
 
 using namespace std;
 
@@ -12,12 +13,11 @@ Imagen::Imagen(){
    nfilas = 0;
    ncolumnas = 0;
 };
-// Carlos
+
 Imagen::Imagen(int filas, int columnas) {
   crear(filas, columnas);
 }
 
-// Juanda
 void Imagen::crear(int filas, int columnas){
   if(filas*columnas < MAXPIXELS){
     nfilas = filas;
@@ -28,38 +28,31 @@ void Imagen::crear(int filas, int columnas){
    }
 }
 
-// Carlos
 int Imagen::filas() {
   return nfilas;
 }
 
-// Juanda
 int Imagen::columnas(){
 	return ncolumnas;
 }
 
-// Carlos
 void Imagen::set(int y, int x, byte v) {
   if(y < nfilas && x < ncolumnas)
     datos[ncolumnas*y + x] = v;
 }
 
-// Juanda
 byte Imagen::get(int y, int x){
 	return datos[ncolumnas * y + x];
 }
 
-// Carlos
 void Imagen::setPos(int i, byte v) {
   datos[i] = v;
 }
 
-// Juanda
 byte Imagen::getPos(int i){
   return datos[i];
 }
 
-// Carlos
 bool Imagen::leerImagen(const char nombreFichero[]) {
   bool res = false;
   TipoImagen tipo = infoPGM(nombreFichero, nfilas, ncolumnas);
