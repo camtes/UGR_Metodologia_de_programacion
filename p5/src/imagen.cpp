@@ -12,20 +12,37 @@ using namespace std;
 Imagen::Imagen(){
    nfilas = 0;
    ncolumnas = 0;
+   MAXPIXELS=0;
+   datos = new byte [MAXPIXELS];
+
+
 };
 
 Imagen::Imagen(int filas, int columnas) {
+
+  nfilas=filas;
+  ncolumnas=columnas;
+  MAXPIXELS = nfilas*ncolumnas;
+  datos=new byte [MAXPIXELS];
   crear(filas, columnas);
 }
 
 void Imagen::crear(int filas, int columnas){
-  if(filas*columnas < MAXPIXELS){
-    nfilas = filas;
-    ncolumnas = columnas;
-    byte bzero = 0x00;
-    for(int i=0; i < filas*columnas; i++)
-      setPos(i,bzero);
-   }
+
+
+  if(filas*columnas > MAXPIXELS){
+    destructor();
+    datos=new byte [filas*columnas];
+    nfilas=filas;
+    ncolumnas=columnas;
+    MAXPIXELS = nfilas*ncolumnas;
+  }
+
+  byte bzero = 0x00;
+  for(int i=0; i < filas*columnas; i++){
+    setPos(i,bzero);
+  }
+
 }
 
 int Imagen::filas() {
@@ -56,12 +73,17 @@ byte Imagen::getPos(int i){
 bool Imagen::leerImagen(const char nombreFichero[]) {
   bool res = false;
   TipoImagen tipo = infoPGM(nombreFichero, nfilas, ncolumnas);
+  crear(nfilas, ncolumnas);
 
-  if (tipo == IMG_PGM_BINARIO && nfilas*ncolumnas < MAXPIXELS)
+
+  if (tipo == IMG_PGM_BINARIO && nfilas*ncolumnas <= MAXPIXELS){
     res = leerPGMBinario (nombreFichero, datos, nfilas, ncolumnas);
+  }
 
-  if (tipo == IMG_PGM_TEXTO && nfilas*ncolumnas < MAXPIXELS)
+  if (tipo == IMG_PGM_TEXTO && nfilas*ncolumnas <= MAXPIXELS){
     res = leerPGM (nombreFichero, datos, nfilas, ncolumnas);
+  }
+
 
   return res;
 }
@@ -108,4 +130,18 @@ bool Imagen::aArteASCII(const char grises[], char arteASCII[], int maxlong){
    }
    arteASCII[pos] = '\0';
    return success;
+}
+
+void Imagen::destructor(){
+  if(datos==NULL){
+    return;
+  }
+  delete [] datos;
+  datos = NULL;
+
+}
+
+Imagen::~Imagen(){
+  destructor();
+
 }
