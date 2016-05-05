@@ -142,13 +142,13 @@ Imagen::~Imagen(){
 
 bool Imagen::listaAArteASCII(const Lista celdas) {
   bool result = false;
-  char arteASCII[60000];
+  char arteASCII[90000];
 
   for (int i=0; i<celdas.longitud(); i++) {
     string gris = celdas.getCelda(i);
     const char *gris_char = gris.c_str();
-
-    if (this->aArteASCII(gris_char, arteASCII, 60000)) {
+    
+    if (this->aArteASCII(gris_char, arteASCII, 90000)) {
       char nombre_aux[255] = "";
       ofstream fsalida;
       sprintf(nombre_aux, "%s%d%s", "ascii", i,".txt");
