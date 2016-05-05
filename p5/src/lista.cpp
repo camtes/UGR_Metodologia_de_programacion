@@ -6,15 +6,12 @@
 using namespace std;
 
 Lista::Lista(){
-	cout << "entro aquiii" << endl;
 	cabecera = new Celda;
 	cabecera->datos = "";
 	cabecera->siguiente = 0;
 }
 
 Lista::Lista(string valor){
-	cout << "entro aquiii con valor" << endl;
-
 	cabecera = new Celda;
   cabecera->datos = valor;
   cabecera->siguiente = 0;
@@ -37,8 +34,6 @@ void Lista::insertar(string valor){
 		}
 
 		ultima->siguiente = aux;
-
-		cout << "acabo de insertar " << aux->datos << endl;
 }
 
 string Lista::getCelda(int pos) const{
@@ -56,7 +51,7 @@ int Lista::longitud() const{
   int cont = 0;
   Celda * aux = cabecera;
 
-  while(cabecera->siguiente != 0) {
+  while(aux->siguiente != 0) {
     aux = aux->siguiente;
     cont++;
   }

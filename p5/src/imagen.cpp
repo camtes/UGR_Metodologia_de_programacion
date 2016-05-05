@@ -142,13 +142,13 @@ Imagen::~Imagen(){
 
 bool Imagen::listaAArteASCII(const Lista celdas) {
   bool result = false;
-  char *arteASCII = new char[nfilas*(ncolumnas+1)];
+  char arteASCII[60000];
 
   for (int i=0; i<celdas.longitud(); i++) {
     string gris = celdas.getCelda(i);
     const char *gris_char = gris.c_str();
 
-    if (this->aArteASCII(gris_char, arteASCII, nfilas*(ncolumnas+1))) {
+    if (this->aArteASCII(gris_char, arteASCII, 60000)) {
       char nombre_aux[255] = "";
       ofstream fsalida;
       sprintf(nombre_aux, "%s%d%s", "ascii", i,".txt");
@@ -158,11 +158,10 @@ bool Imagen::listaAArteASCII(const Lista celdas) {
       result = true;
     }
     else {
-      cout << "La conversión del archivo " << i << "no ha podido ser..." << endl;
+      cout << "No se ha podido generar el archivo ascii" << i << ".txt" << endl;
       result = false;
     }
   }
 
-	delete [] arteASCII;
   return result;
 }
