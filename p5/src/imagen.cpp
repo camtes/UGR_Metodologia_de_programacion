@@ -14,12 +14,9 @@ Imagen::Imagen(){
    ncolumnas = 0;
    MAXPIXELS=0;
    datos = new byte [MAXPIXELS];
-
-
 };
 
 Imagen::Imagen(int filas, int columnas) {
-
   nfilas=filas;
   ncolumnas=columnas;
   MAXPIXELS = nfilas*ncolumnas;
@@ -28,10 +25,8 @@ Imagen::Imagen(int filas, int columnas) {
 }
 
 void Imagen::crear(int filas, int columnas){
-
-
   if(filas*columnas > MAXPIXELS){
-    destructor();
+    destruir();
     datos=new byte [filas*columnas];
     nfilas=filas;
     ncolumnas=columnas;
@@ -132,7 +127,7 @@ bool Imagen::aArteASCII(const char grises[], char arteASCII[], int maxlong){
    return success;
 }
 
-void Imagen::destructor(){
+void Imagen::destruir(){
   if(datos==NULL){
     return;
   }
@@ -142,6 +137,32 @@ void Imagen::destructor(){
 }
 
 Imagen::~Imagen(){
-  destructor();
+  destruir();
+}
 
+bool Imagen::listaAArteASCII(const Lista celdas) {
+  bool result = false;
+  char *arteASCII = new char[nfilas*(ncolumnas+1)];
+
+  for (int i=0; i<celdas.longitud(); i++) {
+    string gris = celdas.getCelda(i);
+    const char *gris_char = gris.c_str();
+
+    if (this->aArteASCII(gris_char, arteASCII, nfilas*(ncolumnas+1))) {
+      char nombre_aux[255] = "";
+      ofstream fsalida;
+      sprintf(nombre_aux, "%s%d%s", "ascii", i,".txt");
+      fsalida.open(nombre_aux);
+      fsalida << arteASCII;
+      fsalida.close();
+      result = true;
+    }
+    else {
+      cout << "La conversión del archivo " << i << "no ha podido ser..." << endl;
+      result = false;
+    }
+  }
+
+	delete [] arteASCII;
+  return result;
 }

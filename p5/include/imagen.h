@@ -2,6 +2,7 @@
 @file
 @brief Clase imagen blanco y negro.
 */
+#include "lista.h"
 
 #ifndef _IMAGEN_H_
 #define _IMAGEN_H_
@@ -18,9 +19,6 @@ private:
    byte *datos;///< datos de la imagen
    int nfilas; 			///< número de filas de la imagen
    int ncolumnas;		///< número de columnsa de la imagen
-
-   void destructor();
-
 public:
 
   ~Imagen();
@@ -135,6 +133,10 @@ Lee desde disco los datos de la imagen llamada @a nombreFichero y la guarda en l
    Imagen plano(int k);
 
    bool aArteASCII(const char grises[], char arteASCII[], int maxlong);
+
+   void destruir();
+
+   bool listaAArteASCII(const Lista celdas);
 };
 
 #endif
