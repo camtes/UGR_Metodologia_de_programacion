@@ -1,6 +1,7 @@
 #include <string>
 #include <fstream>
 #include<iostream>
+#include <unistd.h>
 #include "../include/lista.h"
 
 using namespace std;
@@ -10,11 +11,9 @@ Lista::Lista(){
 }
 
 Lista::Lista(string valor){
-
 	cabecera = new Celda;
   cabecera->datos = valor;
   cabecera->siguiente = 0;
-
 }
 
 void Lista::destruir(){
@@ -30,6 +29,7 @@ void Lista::insertar(string valor){
 	}
 	else {
 		Celda *ultima = cabecera;
+
 		Celda *aux = new Celda;
 		aux->datos = valor;
 		aux->siguiente = 0;
@@ -54,6 +54,7 @@ string Lista::getCelda(int pos) const{
 }
 
 int Lista::longitud() const{
+
   int cont = 0;
   Celda * aux = cabecera;
 
@@ -61,6 +62,8 @@ int Lista::longitud() const{
     aux = aux->siguiente;
     cont++;
   }
+
+	cont++;
 
   return cont;
 }

@@ -12,32 +12,27 @@ using namespace std;
 Imagen::Imagen(){
    nfilas = 0;
    ncolumnas = 0;
-   MAXPIXELS=0;
-   datos = new byte [MAXPIXELS];
+   datos = 0;
 };
 
 Imagen::Imagen(int filas, int columnas) {
-  nfilas=filas;
-  ncolumnas=columnas;
-  MAXPIXELS = nfilas*ncolumnas;
-  datos=new byte [MAXPIXELS];
-  crear(filas, columnas);
+  datos = 0;
+  crear(filas,columnas);
 }
 
 void Imagen::crear(int filas, int columnas){
-  if(filas*columnas > MAXPIXELS){
+  if (datos != 0) {
     destruir();
-    datos=new byte [filas*columnas];
-    nfilas=filas;
-    ncolumnas=columnas;
-    MAXPIXELS = nfilas*ncolumnas;
   }
 
-  byte bzero = 0x00;
-  for(int i=0; i < filas*columnas; i++){
-    setPos(i,bzero);
+  nfilas=filas;
+  ncolumnas=columnas;
+  datos = new byte[filas*columnas];
+  for(int i =0; i< filas; i++){
+     for(int j=0; j< columnas; j++){
+        datos[i*ncolumnas+j]=0;
+     }
   }
-
 }
 
 int Imagen::filas() {
@@ -67,18 +62,17 @@ byte Imagen::getPos(int i){
 
 bool Imagen::leerImagen(const char nombreFichero[]) {
   bool res = false;
-  TipoImagen tipo = infoPGM(nombreFichero, nfilas, ncolumnas);
-  crear(nfilas, ncolumnas);
 
+  TipoImagen tipo = infoPGM(nombreFichero, nfilas, ncolumnas);
 
   if (tipo == IMG_PGM_BINARIO && nfilas*ncolumnas <= MAXPIXELS){
     res = leerPGMBinario (nombreFichero, datos, nfilas, ncolumnas);
   }
 
   if (tipo == IMG_PGM_TEXTO && nfilas*ncolumnas <= MAXPIXELS){
+    crear(nfilas, ncolumnas);
     res = leerPGM (nombreFichero, datos, nfilas, ncolumnas);
   }
-
 
   return res;
 }
@@ -112,19 +106,21 @@ Imagen Imagen::plano (int k) {
 }
 
 bool Imagen::aArteASCII(const char grises[], char arteASCII[], int maxlong){
-   bool success = maxlong > (ncolumnas*nfilas + nfilas);
-   int pos = 0,
-      length = strlen(grises);
-   if(success){
-      for(int i=0; i<ncolumnas; i++){
-         for(int j=0; j<nfilas; j++){
-            arteASCII[pos++] = grises[1*get(i,j)*length/BITDEPTH];
-         }
-         arteASCII[pos++]='\n';
-      }
-   }
-   arteASCII[pos] = '\0';
-   return success;
+
+  bool success = maxlong > (ncolumnas*nfilas + nfilas);
+  int pos = 0, length = strlen(grises);
+  if(success){
+     for(int i=0; i<ncolumnas; i++){
+        for(int j=0; j<nfilas; j++){
+           arteASCII[pos] = grises[get(i,j)*length/BITDEPTH];
+           pos++;
+        }
+        arteASCII[pos]='\n';
+        pos++;
+     }
+  }
+  arteASCII[pos] = '\0';
+  return success;
 }
 
 void Imagen::destruir(){
@@ -142,13 +138,13 @@ Imagen::~Imagen(){
 
 bool Imagen::listaAArteASCII(const Lista celdas) {
   bool result = false;
-  char arteASCII[90000];
+  char * arteASCII = new char[nfilas*(ncolumnas+1)];
 
   for (int i=0; i<celdas.longitud(); i++) {
     string gris = celdas.getCelda(i);
     const char *gris_char = gris.c_str();
-    
-    if (this->aArteASCII(gris_char, arteASCII, 90000)) {
+
+    if (this->aArteASCII(gris_char, arteASCII, 5000)) {
       char nombre_aux[255] = "";
       ofstream fsalida;
       sprintf(nombre_aux, "%s%d%s", "ascii", i,".txt");
@@ -158,7 +154,7 @@ bool Imagen::listaAArteASCII(const Lista celdas) {
       result = true;
     }
     else {
-      cout << "No se ha podido generar el archivo ascii" << i << ".txt" << endl;
+      cout << "\nNo se ha podido generar el archivo ascii" << i << ".txt" << endl;
       result = false;
     }
   }

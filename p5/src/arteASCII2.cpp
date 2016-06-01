@@ -10,7 +10,7 @@
 
 using namespace std;
 
-const int MAXLONG = 1000000;
+const int MAXLONG = 900000;
 
 void leelinea(char *s){
 	do{
@@ -37,13 +37,12 @@ int main(){
 	leelinea(ficheroGrises);
 
 	// Leer cadenas desde fichero
-	if (celdas.leerLista(ficheroGrises)){
-		// realizar las conversiones
+ 	if (celdas.leerLista(ficheroGrises)){
 		if (origen.listaAArteASCII(celdas)){
 			cout << "Exito en la conversion." << endl;
 			cout << "Chequee los ficheros asciiX.txt" << endl;
 			cout << endl;
-		}else{
+	}else{
 			cerr << "La conversion no ha sido posible" << endl;
 			cerr << endl;
 		}
