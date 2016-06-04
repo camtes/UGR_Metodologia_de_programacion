@@ -80,8 +80,7 @@ TipoImagen infoPGM(const char nombre[], int& filas, int& columnas)
 
 // _____________________________________________________________________________
 
-bool leerPGMBinario (const char nombre[], unsigned char datos[], int& filas, int& columnas)
-{
+bool leerPGMBinario (const char nombre[], unsigned char datos[], int& filas, int& columnas) {
   bool exito= false;
   filas=0;
   columnas=0;
@@ -89,14 +88,13 @@ bool leerPGMBinario (const char nombre[], unsigned char datos[], int& filas, int
 
   if (LeerTipo(f)==IMG_PGM_BINARIO)
     if (LeerCabecera (f, filas, columnas))
-	if (f.read(reinterpret_cast<char *>(datos),filas*columnas))
-	  exito= true;
+      if (f.read(reinterpret_cast<char *>(datos),filas*columnas))
+        exito= true;
 
   return exito;
 }
 
 // _____________________________________________________________________________
-
 
 bool leerPGM (const char nombre[], unsigned char datos[], int& filas, int& columnas)
 {
@@ -106,7 +104,7 @@ bool leerPGM (const char nombre[], unsigned char datos[], int& filas, int& colum
 	int c;
 	int contador = 0;
 	ifstream f(nombre);
-	if (LeerTipo(f)==IMG_PGM_TEXTO)
+	if (LeerTipo(f)==IMG_PGM_TEXTO) {
     	if (LeerCabecera (f, filas, columnas)){
 			while(contador <filas*columnas){
 				f >> c;
@@ -115,7 +113,9 @@ bool leerPGM (const char nombre[], unsigned char datos[], int& filas, int& colum
 				}
 			exito = true;
 		}
-	return exito;
+  }
+
+  return exito;
 }
 
 //_______________________________________________________________________________

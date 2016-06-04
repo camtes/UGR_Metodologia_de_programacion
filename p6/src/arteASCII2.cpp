@@ -18,26 +18,31 @@ void leelinea(char *s){
 	} while (s[0]=='\0');
 }
 
-int main(){
+int main(int argc, char ** argv){
     char ficheroGrises[MAXLONG];
     char ficheroImagen[MAXLONG];
     Imagen origen;
     Lista celdas;
 
-	cout << "Introduzca nombre de la imagen: ";
-	leelinea(ficheroImagen);
+		if (argc < 3) {
+			cerr << "Faltan argumentos" << endl;
+			return 1;
+		}
+
+//	cout << "Introduzca nombre de la imagen: ";
+//	leelinea(ficheroImagen);
 
     // Leer la imagen desde fichero
-    if (!origen.leerImagen(ficheroImagen)){
-		cerr << "Error leyendo imagen " << ficheroImagen << endl;
+    if (!origen.leerImagen(argv[1])){
+		cerr << "Error leyendo imagen " << argv[1] << endl;
 		return 1;
     }
 
-	cout << "Introduzca el nombre de fichero con el conjunto de caracteres para realizar la conversion: ";
-	leelinea(ficheroGrises);
+	// cout << "Introduzca el nombre de fichero con el conjunto de caracteres para realizar la conversion: ";
+	// leelinea(ficheroGrises);
 
 	// Leer cadenas desde fichero
- 	if (celdas.leerLista(ficheroGrises)){
+ 	if (celdas.leerLista(argv[2])){
 		if (origen.listaAArteASCII(celdas)){
 			cout << "Exito en la conversion." << endl;
 			cout << "Chequee los ficheros asciiX.txt" << endl;
@@ -48,7 +53,7 @@ int main(){
 		}
 		celdas.destruir(); // liberar memoria listas
 	}else{
-		cerr << "Error lista de grises " << ficheroGrises << endl;
+		cerr << "Error lista de grises " << argv[2] << endl;
 	}
 
     origen.destruir();   // liberar memoria imagen

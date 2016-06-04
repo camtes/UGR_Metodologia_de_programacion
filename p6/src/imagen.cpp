@@ -25,6 +25,18 @@ Imagen::Imagen (const Imagen & orig) {
   copiar(orig.datos, orig.nfilas, orig.ncolumnas);
 }
 
+Imagen::~Imagen(){
+
+        destruir();
+}
+
+Imagen & Imagen::operator = (const Imagen & orig) {
+  datos = 0;
+  copiar(orig.datos, orig.nfilas, orig.ncolumnas);
+
+  return *this;
+}
+
 void Imagen::crear(int filas, int columnas){
   if (datos != 0) {
     destruir();
@@ -41,14 +53,16 @@ void Imagen::crear(int filas, int columnas){
 }
 
 void Imagen::copiar(byte * data,int f, int c) {
-        this->nfilas = f;
-        this->ncolumnas = c;
-        crear(nfilas,ncolumnas);
+    nfilas = f;
+    ncolumnas = c;
+    crear(nfilas,ncolumnas);
 
-        for (int i=0; i<nfilas; i++) {
-          for (int j=0;j<ncolumnas;j++)
-                this->datos[i][j]=data[i][j];
-        }
+    for (int i=0; i<ncolumnas; i++) {
+      for (int j=0;j<nfilas;j++) {
+        byte pixel = get(j,i);
+        set(j,i,pixel);
+      }
+    }
 }
 
 int Imagen::filas() {
@@ -82,6 +96,7 @@ bool Imagen::leerImagen(const char nombreFichero[]) {
   TipoImagen tipo = infoPGM(nombreFichero, nfilas, ncolumnas);
 
   if (tipo == IMG_PGM_BINARIO && nfilas*ncolumnas <= MAXPIXELS){
+    crear(nfilas, ncolumnas);
     res = leerPGMBinario (nombreFichero, datos, nfilas, ncolumnas);
   }
 
@@ -89,6 +104,7 @@ bool Imagen::leerImagen(const char nombreFichero[]) {
     crear(nfilas, ncolumnas);
     res = leerPGM (nombreFichero, datos, nfilas, ncolumnas);
   }
+
 
   return res;
 }
@@ -146,10 +162,6 @@ void Imagen::destruir(){
 
   datos = 0;
   nfilas = ncolumnas = 0;
-}
-
-Imagen::~Imagen(){
-  destruir();
 }
 
 bool Imagen::listaAArteASCII(const Lista celdas) {
