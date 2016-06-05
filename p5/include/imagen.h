@@ -14,7 +14,7 @@ typedef unsigned char byte; ///< byte = 8bits almacenado en un unsigned char
 */
 class Imagen{
 private:
-   int MAXPIXELS;  ///< número máximo de píxeles que podemos almacenar
+   static const int MAXPIXELS=1000000;  ///< número máximo de píxeles que podemos almacenar
    static const int BITDEPTH = 256;
    byte *datos;///< datos de la imagen
    int nfilas; 			///< número de filas de la imagen
