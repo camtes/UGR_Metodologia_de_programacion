@@ -39,6 +39,8 @@ sus elementos a 0.
    ~Imagen();
 
    Imagen &operator = (const Imagen & orig);
+  //  Imagen &operator + (Imagen & orig);
+   friend Imagen operator + (const Imagen imagenA,const Imagen imagenB);
 
 /**
 @brief Crea una imagen negra de tamaño @a filas x @a columnas
@@ -55,14 +57,14 @@ sus elementos a 0.
 @brief Devuelve el número de filas de las imagen
 @return el número de filas de la imagen
 */
-   int filas();
+   int filas() const;
 
 
 /**
 @brief Devuelve el número de columnas de las imagen
 @return el número de columnas de la imagen
 */
-   int columnas();
+   int columnas() const;
 
 
 /**
@@ -88,7 +90,7 @@ Devuelve el valor de la posición (@a x,@a y) de la imagen. Dado que la imagen s
 como un vector, la posición (@a x,@a y) corresponde a la posición @a y * @c ncolumnas + @a x
 del vector.
 */
-   byte get(int y, int x);
+   byte get(int y, int x) const;
 
 
 /**

@@ -8,13 +8,13 @@ LIB = lib
 CXX = g++
 CPPFLAGS = -Wall -g -c -I$(INC)
 
-all: $(BIN)/testimagen $(BIN)/testplano $(BIN)/testarteASCII $(BIN)/arteASCII $(BIN)/arteASCII2
+all: $(BIN)/testimagen $(BIN)/suma $(BIN)/testarteASCII $(BIN)/arteASCII $(BIN)/arteASCII2
 
 bin/testimagen: $(OBJ)/testimagen.o $(LIB)/libimage.a
 	g++ -o $(BIN)/testimagen $(OBJ)/testimagen.o -Llib/ -limage
 
-bin/testplano:  $(OBJ)/testplano.o $(LIB)/libimage.a
-	g++ -o $(BIN)/testplano $(OBJ)/testplano.o -Llib/ -limage
+bin/suma:  $(OBJ)/suma.o $(LIB)/libimage.a
+	g++ -o $(BIN)/suma $(OBJ)/suma.o -Llib/ -limage
 
 bin/testarteASCII: $(OBJ)/testarteASCII.o $(LIB)/libimage.a
 	g++ -o $(BIN)/testarteASCII $(OBJ)/testarteASCII.o -Llib/ -limage
@@ -43,8 +43,8 @@ obj/lista.o: $(SRC)/lista.cpp $(INC)/lista.h
 obj/testimagen.o: $(SRC)/testimagen.cpp $(INC)/imagen.h
 	g++ -c $(SRC)/testimagen.cpp -o $(OBJ)/testimagen.o -Iinclude/
 
-obj/testplano.o: $(SRC)/testplano.cpp $(INC)/imagen.h
-	g++ -c $(SRC)/testplano.cpp -o $(OBJ)/testplano.o -Iinclude/
+obj/suma.o: $(SRC)/suma.cpp $(INC)/imagen.h
+	g++ -c $(SRC)/suma.cpp -o $(OBJ)/suma.o -Iinclude/
 
 obj/testarteASCII.o: $(SRC)/testarteASCII.cpp $(INC)/imagen.h
 	g++ -c $(SRC)/testarteASCII.cpp -o $(OBJ)/testarteASCII.o -Iinclude/

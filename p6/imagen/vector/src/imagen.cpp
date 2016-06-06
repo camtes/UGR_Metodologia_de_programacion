@@ -37,6 +37,60 @@ Imagen & Imagen::operator = (const Imagen & orig) {
   return *this;
 }
 
+// Imagen & Imagen::operator + (Imagen & image) {
+//   int my_nfilas = max(filas(), image.nfilas);
+//   int my_ncolumns = columnas()+image.ncolumnas;
+//
+//   Imagen result(my_nfilas, my_ncolumns);
+//
+//   for (int i=0; i<filas(); i++) {
+//     for (int j=0; j<columnas(); j++) {
+//       result.set(i,j,get(i,j));
+//     }
+//   }
+//
+//   for(int i=0; i<image.nfilas; i++){
+//     for(int j=0; j<image.ncolumnas; j++){
+//       result.set(i,j+columnas(),image.get(i,j));
+//     }
+//   }
+//
+//   return result;
+// }
+
+Imagen operator + (const Imagen imagenA, const Imagen imagenB){
+  if (imagenA.filas()>0 && imagenB.filas()>0) {
+    int nuevaFila = imagenA.filas() > imagenB.filas() ? imagenA.filas() : imagenB.filas(); //Nos quedamos con el mayor numero de filas
+    int nuevaColumna = imagenA.columnas()+imagenB.columnas(); //Sumamos el numero de columnas
+
+    Imagen nueva (nuevaFila,nuevaColumna);
+
+    // //Escribimos la imagen A
+    for (int i=0; i<imagenA.filas(); i++)
+      for (int j=0;j<imagenA.columnas();j++) {
+          cout << "Pos: " << i*nueva.columnas()+j << " => " << imagenA.get(i,j) << endl;
+          nueva.setPos(i*nueva.columnas()+j,imagenA.get(i,j));
+      }
+
+    //Escribimos la imagen B
+    for (int i=0; i<imagenB.filas(); i++)
+      for (int j=0;j<imagenB.columnas();j++) {
+        //cout << "Pos: " << i*nueva.columnas()+j+imagenA.columnas() << " => " << imagenB.get(i,j) << endl;
+        nueva.setPos(i*nueva.columnas()+j+imagenA.columnas(),imagenB.get(i,j));
+      }
+
+
+      return nueva;
+
+
+  }
+        else{
+                cout<<"\nDevolviendo imagen nula, una de las 2 imagenes no existe:"<<endl;
+                Imagen nueva;
+                return nueva;
+        }
+}
+
 void Imagen::crear(int filas, int columnas){
   if (datos != 0) {
     destruir();
@@ -65,11 +119,11 @@ void Imagen::copiar(byte * data,int f, int c) {
     }
 }
 
-int Imagen::filas() {
+int Imagen::filas() const{
   return nfilas;
 }
 
-int Imagen::columnas(){
+int Imagen::columnas() const{
 	return ncolumnas;
 }
 
@@ -78,7 +132,7 @@ void Imagen::set(int y, int x, byte v) {
     datos[ncolumnas*y + x] = v;
 }
 
-byte Imagen::get(int y, int x){
+byte Imagen::get(int y, int x) const{
 	return datos[ncolumnas * y + x];
 }
 
@@ -98,13 +152,13 @@ bool Imagen::leerImagen(const char nombreFichero[]) {
   if (tipo == IMG_PGM_BINARIO && nfilas*ncolumnas <= MAXPIXELS){
     crear(nfilas, ncolumnas);
     res = leerPGMBinario (nombreFichero, datos, nfilas, ncolumnas);
+
   }
 
   if (tipo == IMG_PGM_TEXTO && nfilas*ncolumnas <= MAXPIXELS){
     crear(nfilas, ncolumnas);
     res = leerPGM (nombreFichero, datos, nfilas, ncolumnas);
   }
-
 
   return res;
 }
@@ -115,7 +169,7 @@ bool Imagen::escribirImagen(const char nombreFichero[], bool esBinario) {
   if (esBinario)
     res = escribirPGMBinario(nombreFichero, datos, nfilas, ncolumnas);
   else
-    res = escribirPGMBinario(nombreFichero, datos, nfilas, ncolumnas);
+    res = escribirPGM(nombreFichero, datos, nfilas, ncolumnas);
 
   return res;
 }

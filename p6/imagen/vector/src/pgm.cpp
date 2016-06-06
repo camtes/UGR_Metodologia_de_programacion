@@ -81,23 +81,26 @@ TipoImagen infoPGM(const char nombre[], int& filas, int& columnas)
 // _____________________________________________________________________________
 
 bool leerPGMBinario (const char nombre[], unsigned char datos[], int& filas, int& columnas) {
+  cout << "leo pgm binario" << endl;
   bool exito= false;
-  filas=0;
-  columnas=0;
-  ifstream f(nombre);
+        filas=0;
+        columnas=0;
+        ifstream f(nombre);
 
-  if (LeerTipo(f)==IMG_PGM_BINARIO)
-    if (LeerCabecera (f, filas, columnas))
-      if (f.read(reinterpret_cast<char *>(datos),filas*columnas))
-        exito= true;
+        if (LeerTipo(f)==IMG_PGM_BINARIO)
+                if (LeerCabecera (f, filas, columnas))
+                        if (f.read(reinterpret_cast<char *>(datos),filas*columnas)) {
+                          exito = true;
+                        }
 
-  return exito;
+        return exito;
 }
 
 // _____________________________________________________________________________
 
 bool leerPGM (const char nombre[], unsigned char datos[], int& filas, int& columnas)
 {
+  cout << "leo pgm text" << endl;
   bool exito= false;
 	filas=0;
 	columnas=0;
@@ -140,10 +143,6 @@ bool escribirPGMBinario (const char nombre[], const unsigned char datos[], int f
 
 bool escribirPGM (const char nombre[], const unsigned char datos[], int filas, int columnas)
 {
-
-	/*for (int cont=0; cont < filas*columnas; cont++){
-			cout << cont << "-" <<(int)datos[cont] << " ";
-		}*/
 	ofstream f;
 
 	bool res = true;
@@ -158,7 +157,7 @@ bool escribirPGM (const char nombre[], const unsigned char datos[], int filas, i
 		}
 		if (!f) res=false;
   	}
-	//f.close();
+	f.close();
   return res;
 
 }
