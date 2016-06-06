@@ -19,8 +19,6 @@ void leelinea(char *s){
 }
 
 int main(int argc, char ** argv){
-    char ficheroGrises[MAXLONG];
-    char ficheroImagen[MAXLONG];
     Imagen origen;
     Lista celdas;
 

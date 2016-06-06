@@ -43,7 +43,7 @@ obj/lista.o: $(SRC)/lista.cpp $(INC)/lista.h
 obj/testimagen.o: $(SRC)/testimagen.cpp $(INC)/imagen.h
 	g++ -c $(SRC)/testimagen.cpp -o $(OBJ)/testimagen.o -Iinclude/
 
-obj/suma.o: $(SRC)/suma.cpp $(INC)/imagen.h
+obj/suma.o: $(SRC)/suma.cpp $(INC)/imagen.h $(INC)/lista.h
 	g++ -c $(SRC)/suma.cpp -o $(OBJ)/suma.o -Iinclude/
 
 obj/testarteASCII.o: $(SRC)/testarteASCII.cpp $(INC)/imagen.h

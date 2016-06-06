@@ -60,7 +60,7 @@ Imagen & Imagen::operator = (const Imagen & orig) {
 
 Imagen operator + (const Imagen imagenA, const Imagen imagenB){
   if (imagenA.filas()>0 && imagenB.filas()>0) {
-    int nuevaFila = imagenA.filas() > imagenB.filas() ? imagenA.filas() : imagenB.filas(); //Nos quedamos con el mayor numero de filas
+    int nuevaFila = max(imagenA.filas(), imagenB.filas());
     int nuevaColumna = imagenA.columnas()+imagenB.columnas(); //Sumamos el numero de columnas
 
     Imagen nueva (nuevaFila,nuevaColumna);
@@ -68,7 +68,7 @@ Imagen operator + (const Imagen imagenA, const Imagen imagenB){
     // //Escribimos la imagen A
     for (int i=0; i<imagenA.filas(); i++)
       for (int j=0;j<imagenA.columnas();j++) {
-          cout << "Pos: " << i*nueva.columnas()+j << " => " << imagenA.get(i,j) << endl;
+          // cout << "Pos: " << i*nueva.columnas()+j << " => " << imagenA.get(i,j) << endl;
           nueva.setPos(i*nueva.columnas()+j,imagenA.get(i,j));
       }
 
@@ -79,16 +79,12 @@ Imagen operator + (const Imagen imagenA, const Imagen imagenB){
         nueva.setPos(i*nueva.columnas()+j+imagenA.columnas(),imagenB.get(i,j));
       }
 
-
       return nueva;
-
-
   }
-        else{
-                cout<<"\nDevolviendo imagen nula, una de las 2 imagenes no existe:"<<endl;
-                Imagen nueva;
-                return nueva;
-        }
+  else{
+    Imagen nueva;
+    return nueva;
+  }
 }
 
 void Imagen::crear(int filas, int columnas){
@@ -133,6 +129,7 @@ void Imagen::set(int y, int x, byte v) {
 }
 
 byte Imagen::get(int y, int x) const{
+  // en suma.cpp devuelve solo espacios
 	return datos[ncolumnas * y + x];
 }
 
