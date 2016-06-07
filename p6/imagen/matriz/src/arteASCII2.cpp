@@ -19,8 +19,6 @@ void leelinea(char *s){
 }
 
 int main(int argc, char ** argv){
-    char ficheroGrises[MAXLONG];
-    char ficheroImagen[MAXLONG];
     Imagen origen;
     Lista celdas;
 
@@ -37,6 +35,12 @@ int main(int argc, char ** argv){
 		cerr << "Error leyendo imagen " << argv[1] << endl;
 		return 1;
     }
+
+		// for (int i=0; i<origen.filas(); i++) {
+		// 	for (int j=0; j<origen.columnas(); j++) {
+		// 		cout << "dato["<<i<<j<<"] => " << origen.get(i,j) << endl;
+		// 	}
+		// }
 
 	// cout << "Introduzca el nombre de fichero con el conjunto de caracteres para realizar la conversion: ";
 	// leelinea(ficheroGrises);

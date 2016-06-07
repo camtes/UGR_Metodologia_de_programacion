@@ -65,7 +65,6 @@ void Lista::insertar(string valor){
 	}
 	else {
 		Celda *ultima = cabecera;
-
 		Celda *aux = new Celda;
 		aux->datos = valor;
 		aux->siguiente = 0;

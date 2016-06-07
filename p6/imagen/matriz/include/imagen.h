@@ -16,7 +16,7 @@ class Imagen{
 private:
    static const int MAXPIXELS=1000000;  ///< número máximo de píxeles que podemos almacenar
    static const int BITDEPTH = 256;
-   byte *datos;///< datos de la imagen
+   byte **datos;///< datos de la imagen
    int nfilas; 			///< número de filas de la imagen
    int ncolumnas;		///< número de columnsa de la imagen
 public:
@@ -34,11 +34,13 @@ sus elementos a 0.
 */
    Imagen(int filas, int columnas);
 
-   Imagen(const Imagen & orig);
+   Imagen(const Imagen &);
 
    ~Imagen();
 
    Imagen &operator = (const Imagen & orig);
+   Imagen operator+(const Imagen &img) const;
+  //  friend Imagen operator + (const Imagen imagenA,const Imagen imagenB);
 
 /**
 @brief Crea una imagen negra de tamaño @a filas x @a columnas
@@ -50,19 +52,19 @@ sus elementos a 0.
 */
    void crear(int filas, int columnas);
 
-   void copiar(byte * data,int f, int c);
+   void copiar(byte ** data,int f, int c);
 /**
 @brief Devuelve el número de filas de las imagen
 @return el número de filas de la imagen
 */
-   int filas();
+   int filas() const;
 
 
 /**
 @brief Devuelve el número de columnas de las imagen
 @return el número de columnas de la imagen
 */
-   int columnas();
+   int columnas() const;
 
 
 /**
@@ -88,7 +90,7 @@ Devuelve el valor de la posición (@a x,@a y) de la imagen. Dado que la imagen s
 como un vector, la posición (@a x,@a y) corresponde a la posición @a y * @c ncolumnas + @a x
 del vector.
 */
-   byte get(int y, int x);
+   byte get(int y, int x) const;
 
 
 /**
@@ -101,7 +103,6 @@ corresponde con la posición @c y * @c ncolumnas + @c x de la imagen donde @c y 
 fila y @c x representa la columna.
 */
    void setPos(int i, byte v);
-
 
 /**
 @brief Devuelve el valor de la posición @a i de la imagen considerada como vector

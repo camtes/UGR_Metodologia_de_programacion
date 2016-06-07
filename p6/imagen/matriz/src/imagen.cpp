@@ -37,6 +37,26 @@ Imagen & Imagen::operator = (const Imagen & orig) {
   return *this;
 }
 
+Imagen Imagen::operator+(const Imagen & imagen) const{
+
+  int num_filas = max(filas(),imagen.filas());
+  int num_columnas = columnas()+imagen.columnas();
+  Imagen nueva(num_filas, num_columnas);
+
+  for(int f=0; f<filas(); f++){
+    for(int c=0; c<columnas(); c++){
+      nueva.set(f,c,get(f,c));
+    }
+  }
+
+  for(int f=0; f<imagen.filas(); f++){
+    for(int c=0; c<imagen.columnas(); c++){
+      nueva.set(f,c+columnas(),imagen.get(f,c));
+    }
+  }
+  return nueva;
+}
+
 void Imagen::crear(int filas, int columnas){
   if (datos != 0) {
     destruir();
@@ -44,15 +64,24 @@ void Imagen::crear(int filas, int columnas){
 
   nfilas=filas;
   ncolumnas=columnas;
-  datos = new byte[filas*columnas];
+  datos = new byte*[filas];
+  for(int i = 0; i < filas; i++) {
+    datos[i] = new byte[filas*columnas];
+  }
+
+  //Enlazamos el resto del array
+  for (int i=1; i< filas; i++) {
+    datos[i] = datos[i-1] + columnas;
+  }
+
   for(int i =0; i< filas; i++){
      for(int j=0; j< columnas; j++){
-        datos[i*ncolumnas+j]=0;
+        datos[i][j]=0;
      }
   }
 }
 
-void Imagen::copiar(byte * data,int f, int c) {
+void Imagen::copiar(byte ** data,int f, int c) {
     nfilas = f;
     ncolumnas = c;
     crear(nfilas,ncolumnas);
@@ -65,29 +94,44 @@ void Imagen::copiar(byte * data,int f, int c) {
     }
 }
 
-int Imagen::filas() {
+int Imagen::filas() const{
   return nfilas;
 }
 
-int Imagen::columnas(){
+int Imagen::columnas() const{
 	return ncolumnas;
 }
 
 void Imagen::set(int y, int x, byte v) {
   if(y < nfilas && x < ncolumnas)
-    datos[ncolumnas*y + x] = v;
+    datos[y][x] = v;
 }
 
-byte Imagen::get(int y, int x){
-	return datos[ncolumnas * y + x];
+byte Imagen::get(int y, int x) const{
+	return datos[y][x];
 }
 
 void Imagen::setPos(int i, byte v) {
-  datos[i] = v;
+  if(i<filas()*columnas()){
+		datos[0][i]=v;
+	}
+  else {
+    std::cerr << "/* Indice supera el vector */" << std::endl;
+    exit(1);
+  }
 }
 
 byte Imagen::getPos(int i){
-  return datos[i];
+
+
+
+  if(i<filas()*columnas()){
+		return datos[0][i];
+	}
+  else {
+    std::cerr << "/* Indice supera el vector */" << std::endl;
+    exit(1);
+  }
 }
 
 bool Imagen::leerImagen(const char nombreFichero[]) {
@@ -97,14 +141,14 @@ bool Imagen::leerImagen(const char nombreFichero[]) {
 
   if (tipo == IMG_PGM_BINARIO && nfilas*ncolumnas <= MAXPIXELS){
     crear(nfilas, ncolumnas);
-    res = leerPGMBinario (nombreFichero, datos, nfilas, ncolumnas);
+    res = leerPGMBinario (nombreFichero, datos[0], nfilas, ncolumnas);
+
   }
 
   if (tipo == IMG_PGM_TEXTO && nfilas*ncolumnas <= MAXPIXELS){
     crear(nfilas, ncolumnas);
-    res = leerPGM (nombreFichero, datos, nfilas, ncolumnas);
+    res = leerPGM (nombreFichero, datos[0], nfilas, ncolumnas);
   }
-
 
   return res;
 }
@@ -113,9 +157,9 @@ bool Imagen::escribirImagen(const char nombreFichero[], bool esBinario) {
   bool res = false;
 
   if (esBinario)
-    res = escribirPGMBinario(nombreFichero, datos, nfilas, ncolumnas);
+    res = escribirPGMBinario(nombreFichero, datos[0], nfilas, ncolumnas);
   else
-    res = escribirPGMBinario(nombreFichero, datos, nfilas, ncolumnas);
+    res = escribirPGM(nombreFichero, datos[0], nfilas, ncolumnas);
 
   return res;
 }

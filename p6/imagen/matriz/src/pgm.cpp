@@ -80,16 +80,19 @@ TipoImagen infoPGM(const char nombre[], int& filas, int& columnas)
 
 // _____________________________________________________________________________
 
-bool leerPGMBinario (const char nombre[], unsigned char datos[], int& filas, int& columnas) {
+bool leerPGMBinario (const char nombre[], unsigned char datos[0], int& filas, int& columnas) {
   bool exito= false;
   filas=0;
   columnas=0;
   ifstream f(nombre);
 
-  if (LeerTipo(f)==IMG_PGM_BINARIO)
-    if (LeerCabecera (f, filas, columnas))
-      if (f.read(reinterpret_cast<char *>(datos),filas*columnas))
-        exito= true;
+  if (LeerTipo(f)==IMG_PGM_BINARIO) {
+    if (LeerCabecera (f, filas, columnas)) {
+      if (f.read(reinterpret_cast<char *>(datos),filas*columnas)) {
+        exito = true;
+      }
+    }
+  }
 
   return exito;
 }
@@ -101,19 +104,20 @@ bool leerPGM (const char nombre[], unsigned char datos[], int& filas, int& colum
   bool exito= false;
 	filas=0;
 	columnas=0;
+  int contador = 0;
 	int c;
-	int contador = 0;
 	ifstream f(nombre);
-	if (LeerTipo(f)==IMG_PGM_TEXTO) {
-    	if (LeerCabecera (f, filas, columnas)){
-			while(contador <filas*columnas){
-				f >> c;
-				datos[contador]=(char)c;    //ASIGNAR DATOS AL VECTOR
-				contador ++;
-				}
-			exito = true;
+
+  if (LeerTipo(f) == IMG_PGM_TEXTO)
+  	if (LeerCabecera (f, filas, columnas)) {
+    	while(contador <filas*columnas) {
+  	    f >> c;
+    		datos[contador]=(char)c;    //ASIGNAR DATOS AL VECTOR
+    		contador ++;
+  		}
+
+    exito = true;
 		}
-  }
 
   return exito;
 }
@@ -132,33 +136,28 @@ bool escribirPGMBinario (const char nombre[], const unsigned char datos[], int f
     f.write(reinterpret_cast<const char *>(datos),filas*columnas);
     if (!f) res=false;
   }
+  f.close();
   return res;
 }
 
-
 //_______________________________________________________________________________
 
-bool escribirPGM (const char nombre[], const unsigned char datos[], int filas, int columnas)
+bool escribirPGM (const char nombre[], const unsigned char *datos, int filas, int columnas)
 {
-
-	/*for (int cont=0; cont < filas*columnas; cont++){
-			cout << cont << "-" <<(int)datos[cont] << " ";
-		}*/
-	ofstream f;
+	ofstream f(nombre);
 
 	bool res = true;
-	//f.open();
+
 	if(f) {
 		f << "P2" << endl;
 		f << columnas << ' ' << filas << endl;
 		f << 255 << endl;
 		//f.write(reinterpret_cast<const char *>(datos),filas*columnas);
-		for (int i=0; i<filas*columnas;i++){
-			f << (int)datos[i]<<' ';
-		}
+    for(int i=0; i<filas*columnas; i++){
+      f << (int)datos[i] << " ";
+    }
 		if (!f) res=false;
   	}
-	//f.close();
+	f.close();
   return res;
-
 }

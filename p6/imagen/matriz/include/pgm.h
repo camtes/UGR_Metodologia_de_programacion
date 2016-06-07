@@ -1,14 +1,14 @@
 /**
-  * @file 
-  * @brief Fichero cabecera para la E/S de imágenes PGM 
+  * @file
+  * @brief Fichero cabecera para la E/S de imágenes PGM
   *
   * Permite la E/S de archivos de tipos PGM
   *
   */
-  
+
 #ifndef _PGM_H_
 #define _PGM_H_
-  
+
 /**
   * @brief Tipo de imagen
   *
@@ -30,7 +30,7 @@ enum TipoImagen {
   * @param nombre indica el nombre del archivo de disco a consultar
   * @param filas Parámetro de salida con las filas de la imagen.
   * @param columnas Parámetro de salida con las columnas de la imagen.
-  * @return Devuelve el tipo de la imagen en el archivo 
+  * @return Devuelve el tipo de la imagen en el archivo
   *
   * @see TipoImagen
   */
@@ -44,13 +44,13 @@ TipoImagen infoPGM(const char nombre[], int& filas, int& columnas);
   * @param filas 	Parámetro de salida con las filas de la imagen.
   * @param columnas Parámetro de salida con las columnas de la imagen.
   * @param datos 	vector para obtener el valor de cada uno de los píxeles
-  *        desde la esquina superior izqda a la inferior dcha. 
+  *        desde la esquina superior izqda a la inferior dcha.
   * @retval true 	si ha tenido éxito en la lectura.
   * @retval false 	si se ha producido algún error en la lectura.
   * @pre datos 		debe tener tamaño suficiente para almacenar
   *      @a filas x @a columnas bytes de datos de la imagen.
   */
-bool leerPGMBinario (const char nombre[], unsigned char datos[], int& filas, int& columnas);
+bool leerPGMBinario (const char nombre[], unsigned char datos[0], int& filas, int& columnas);
 
 /**
   * @brief Escribe una imagen de tipo PGM binario
@@ -72,7 +72,7 @@ bool escribirPGMBinario (const char nombre[], const unsigned char datos[], int f
   * @param filas 	Parámetro de salida con las filas de la imagen.
   * @param columnas Parámetro de salida con las columnas de la imagen.
   * @param datos 	vector para obtener el valor de cada uno de los píxeles
-  *        desde la esquina superior izqda a la inferior dcha. 
+  *        desde la esquina superior izqda a la inferior dcha.
   * @retval true 	si ha tenido éxito en la lectura.
   * @retval false 	si se ha producido algún error en la lectura.
   * @pre datos 		debe tener tamaño suficiente para almacenar
@@ -92,9 +92,8 @@ bool leerPGM (const char nombre[], unsigned char datos[], int& filas, int& colum
   * @retval true 	si ha tenido éxito en la escritura.
   * @retval false 	si se ha producido algún error en la escritura.
   */
-bool escribirPGM (const char nombre[], const unsigned char datos[], int filas, int columnas);
+bool escribirPGM (const char nombre[], const unsigned char datos[0], int filas, int columnas);
 
 
 
 #endif
-
