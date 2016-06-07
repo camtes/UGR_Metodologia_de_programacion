@@ -37,54 +37,24 @@ Imagen & Imagen::operator = (const Imagen & orig) {
   return *this;
 }
 
-// Imagen & Imagen::operator + (Imagen & image) {
-//   int my_nfilas = max(filas(), image.nfilas);
-//   int my_ncolumns = columnas()+image.ncolumnas;
-//
-//   Imagen result(my_nfilas, my_ncolumns);
-//
-//   for (int i=0; i<filas(); i++) {
-//     for (int j=0; j<columnas(); j++) {
-//       result.set(i,j,get(i,j));
-//     }
-//   }
-//
-//   for(int i=0; i<image.nfilas; i++){
-//     for(int j=0; j<image.ncolumnas; j++){
-//       result.set(i,j+columnas(),image.get(i,j));
-//     }
-//   }
-//
-//   return result;
-// }
+Imagen Imagen::operator+(const Imagen & imagen) const{
 
-Imagen operator + (const Imagen imagenA, const Imagen imagenB){
-  if (imagenA.filas()>0 && imagenB.filas()>0) {
-    int nuevaFila = max(imagenA.filas(), imagenB.filas());
-    int nuevaColumna = imagenA.columnas()+imagenB.columnas(); //Sumamos el numero de columnas
+  int num_filas = max(filas(),imagen.filas());
+  int num_columnas = columnas()+imagen.columnas();
+  Imagen nueva(num_filas, num_columnas);
 
-    Imagen nueva (nuevaFila,nuevaColumna);
-
-    // //Escribimos la imagen A
-    for (int i=0; i<imagenA.filas(); i++)
-      for (int j=0;j<imagenA.columnas();j++) {
-          // cout << "Pos: " << i*nueva.columnas()+j << " => " << imagenA.get(i,j) << endl;
-          nueva.setPos(i*nueva.columnas()+j,imagenA.get(i,j));
-      }
-
-    //Escribimos la imagen B
-    for (int i=0; i<imagenB.filas(); i++)
-      for (int j=0;j<imagenB.columnas();j++) {
-        //cout << "Pos: " << i*nueva.columnas()+j+imagenA.columnas() << " => " << imagenB.get(i,j) << endl;
-        nueva.setPos(i*nueva.columnas()+j+imagenA.columnas(),imagenB.get(i,j));
-      }
-
-      return nueva;
+  for(int f=0; f<filas(); f++){
+    for(int c=0; c<columnas(); c++){
+      nueva.set(f,c,get(f,c));
+    }
   }
-  else{
-    Imagen nueva;
-    return nueva;
+
+  for(int f=0; f<imagen.filas(); f++){
+    for(int c=0; c<imagen.columnas(); c++){
+      nueva.set(f,c+columnas(),imagen.get(f,c));
+    }
   }
+  return nueva;
 }
 
 void Imagen::crear(int filas, int columnas){

@@ -34,13 +34,13 @@ sus elementos a 0.
 */
    Imagen(int filas, int columnas);
 
-   Imagen(const Imagen & orig);
+   Imagen(const Imagen &);
 
    ~Imagen();
 
    Imagen &operator = (const Imagen & orig);
-  //  Imagen &operator + (Imagen & orig);
-   friend Imagen operator + (const Imagen imagenA,const Imagen imagenB);
+   Imagen operator+(const Imagen &img) const;
+  //  friend Imagen operator + (const Imagen imagenA,const Imagen imagenB);
 
 /**
 @brief Crea una imagen negra de tamaño @a filas x @a columnas
@@ -103,7 +103,6 @@ corresponde con la posición @c y * @c ncolumnas + @c x de la imagen donde @c y 
 fila y @c x representa la columna.
 */
    void setPos(int i, byte v);
-
 
 /**
 @brief Devuelve el valor de la posición @a i de la imagen considerada como vector

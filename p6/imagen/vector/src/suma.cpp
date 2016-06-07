@@ -9,7 +9,8 @@ using namespace std;
 
 int main(int argc, char ** argv) {
 
-  Imagen origen1, origen2, destino;
+  Imagen origen1, origen2, nueva;
+  bool isBinary = false;
 
   if (argc < 5) {
     std::cerr << "/* error message */" << std::endl;
@@ -26,15 +27,33 @@ int main(int argc, char ** argv) {
     return 1;
   }
 
-  try{
-    Imagen suma = (origen1+origen2);
+  if(*argv[4]=='b')
+		isBinary=true;
+	else
+		isBinary=false;
 
-    if (argv[4]==string("b"))
-      suma.escribirImagen(argv[3],true);
-    else
-      suma.escribirImagen(argv[3],false);
-    }
-    catch (int e) {
-      cout << "An exception occurred. Exception Nr. " << e << '\n';
-    }
+  nueva = origen1+origen2;
+
+  if ((origen1+origen2).escribirImagen(argv[3], isBinary)){
+    cout << argv[3] << " guardado correctamente \n";
+	} else { // si error
+		cerr << "Error guardando la imagen " << argv[3] << "\n";
+		return 1;
+	}
+
+  // try{
+  //   // Imagen suma = operator+(origen1, origen2);
+  //
+  //   if (argv[4]==string("b")) {
+  //     (origen1+origen2).escribirImagen(argv[3], true);
+  //   }
+  //   else {
+  //     (origen1+origen2).escribirImagen(argv[3], false);
+  //   }
+  // }
+  // catch (int e) {
+  //     cout << "An exception occurred. Exception Nr. " << e << '\n';
+  // }
+
+  return 0;
 }
