@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <cstring>
 #include <iostream>
+#include <cstdlib>
 #include "../include/imagen.h"
 #include "../include/pgm.h"
 #include "../include/byte.h"
@@ -26,8 +27,7 @@ Imagen::Imagen (const Imagen & orig) {
 }
 
 Imagen::~Imagen(){
-
-        destruir();
+  destruir();
 }
 
 Imagen & Imagen::operator = (const Imagen & orig) {
@@ -82,16 +82,16 @@ void Imagen::crear(int filas, int columnas){
 }
 
 void Imagen::copiar(byte ** data,int f, int c) {
-    nfilas = f;
-    ncolumnas = c;
-    crear(nfilas,ncolumnas);
+  nfilas = f;
+  ncolumnas = c;
+  crear(nfilas,ncolumnas);
 
-    for (int i=0; i<ncolumnas; i++) {
-      for (int j=0;j<nfilas;j++) {
-        byte pixel = get(j,i);
-        set(j,i,pixel);
-      }
+  for (int i=0; i<ncolumnas; i++) {
+    for (int j=0;j<nfilas;j++) {
+      byte pixel = get(j,i);
+      set(j,i,pixel);
     }
+  }
 }
 
 int Imagen::filas() const{
@@ -121,11 +121,8 @@ void Imagen::setPos(int i, byte v) {
   }
 }
 
-byte Imagen::getPos(int i){
-
-
-
-  if(i<filas()*columnas()){
+byte Imagen::getPos(int i) {
+  if(i<filas()*columnas()) {
 		return datos[0][i];
 	}
   else {
@@ -142,7 +139,6 @@ bool Imagen::leerImagen(const char nombreFichero[]) {
   if (tipo == IMG_PGM_BINARIO && nfilas*ncolumnas <= MAXPIXELS){
     crear(nfilas, ncolumnas);
     res = leerPGMBinario (nombreFichero, datos[0], nfilas, ncolumnas);
-
   }
 
   if (tipo == IMG_PGM_TEXTO && nfilas*ncolumnas <= MAXPIXELS){
@@ -166,6 +162,7 @@ bool Imagen::escribirImagen(const char nombreFichero[], bool esBinario) {
 
 Imagen Imagen::plano (int k) {
   Imagen nueva_imagen(nfilas, ncolumnas);
+
   for(int i=0; i<ncolumnas; i++) {
     for(int j=0; j<nfilas; j++) {
        byte pixel = get(j,i);
@@ -182,7 +179,6 @@ Imagen Imagen::plano (int k) {
 }
 
 bool Imagen::aArteASCII(const char grises[], char arteASCII[], int maxlong){
-
   bool success = maxlong > (ncolumnas*nfilas + nfilas);
   int pos = 0, length = strlen(grises);
   if(success){

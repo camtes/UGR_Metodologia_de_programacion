@@ -152,7 +152,6 @@ bool escribirPGM (const char nombre[], const unsigned char *datos, int filas, in
 		f << "P2" << endl;
 		f << columnas << ' ' << filas << endl;
 		f << 255 << endl;
-		//f.write(reinterpret_cast<const char *>(datos),filas*columnas);
     for(int i=0; i<filas*columnas; i++){
       f << (int)datos[i] << " ";
     }

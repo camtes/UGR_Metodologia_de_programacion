@@ -13,7 +13,8 @@ int main(int argc, char ** argv) {
   bool isBinary = false;
 
   if (argc < 5) {
-    std::cerr << "/* error message */" << std::endl;
+    std::cerr << "/* Faltan argumentos */" << std::endl;
+		cout << "bin/suma imagen1.pgm imagen2.pgm imagen_final.pgm (b|t)" << endl;
     return 1;
   }
 
@@ -36,24 +37,16 @@ int main(int argc, char ** argv) {
 
   if ((origen1+origen2).escribirImagen(argv[3], isBinary)){
     cout << argv[3] << " guardado correctamente \n";
-	} else { // si error
+	}
+  else {
 		cerr << "Error guardando la imagen " << argv[3] << "\n";
 		return 1;
 	}
 
-  // try{
-  //   // Imagen suma = operator+(origen1, origen2);
-  //
-  //   if (argv[4]==string("b")) {
-  //     (origen1+origen2).escribirImagen(argv[3], true);
-  //   }
-  //   else {
-  //     (origen1+origen2).escribirImagen(argv[3], false);
-  //   }
-  // }
-  // catch (int e) {
-  //     cout << "An exception occurred. Exception Nr. " << e << '\n';
-  // }
+  // Destruimos las imagenes
+  origen1.destruir();
+  origen2.destruir();
+  nueva.destruir();
 
   return 0;
 }

@@ -64,7 +64,7 @@ public:
 * Libera la memoria reservada en el vetor de imagen y actualiza el numero
 * de elementos de la misma a 0.
 */
-   void destruir();
+void destruir();
 
 /**
 * @brief Copia una Lista en una nueva

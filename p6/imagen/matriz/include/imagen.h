@@ -40,8 +40,7 @@ sus elementos a 0.
 
    Imagen &operator = (const Imagen & orig);
    Imagen operator+(const Imagen &img) const;
-  //  friend Imagen operator + (const Imagen imagenA,const Imagen imagenB);
-
+   
 /**
 @brief Crea una imagen negra de tamaño @a filas x @a columnas
 @param filas 	número de filas de la imagen

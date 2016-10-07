@@ -28,8 +28,10 @@ Lista & Lista::operator = (const Lista & orig){
 }
 
 Lista & Lista::operator + (const string valor) {
-	insertar(valor);
-	return *this;
+	Lista result(*this);
+	result.insertar(valor);
+
+	return result;
 }
 
 Lista::~Lista() {

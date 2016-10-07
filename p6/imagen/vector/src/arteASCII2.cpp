@@ -19,41 +19,39 @@ void leelinea(char *s){
 }
 
 int main(int argc, char ** argv){
-    Imagen origen;
-    Lista celdas;
+  Imagen origen;
+  Lista celdas;
 
-		if (argc < 3) {
-			cerr << "Faltan argumentos" << endl;
-			return 1;
-		}
+	if (argc < 3) {
+    std::cerr << "/* Faltan argumentos */" << std::endl;
+		cout << "bin/arteASCII2 imagen.pgm fichero_ascii.txt" << endl;
 
-//	cout << "Introduzca nombre de la imagen: ";
-//	leelinea(ficheroImagen);
-
-    // Leer la imagen desde fichero
-    if (!origen.leerImagen(argv[1])){
-		cerr << "Error leyendo imagen " << argv[1] << endl;
 		return 1;
-    }
+	}
 
-	// cout << "Introduzca el nombre de fichero con el conjunto de caracteres para realizar la conversion: ";
-	// leelinea(ficheroGrises);
+	// Leer la imagen desde fichero
+  if (!origen.leerImagen(argv[1])) {
+	cerr << "Error leyendo imagen " << argv[1] << endl;
+	return 1;
+  }
 
 	// Leer cadenas desde fichero
- 	if (celdas.leerLista(argv[2])){
-		if (origen.listaAArteASCII(celdas)){
+	if (celdas.leerLista(argv[2])) {
+		if (origen.listaAArteASCII(celdas)) {
 			cout << "Exito en la conversion." << endl;
 			cout << "Chequee los ficheros asciiX.txt" << endl;
 			cout << endl;
-	}else{
+		}
+		else {
 			cerr << "La conversion no ha sido posible" << endl;
 			cerr << endl;
 		}
 		celdas.destruir(); // liberar memoria listas
-	}else{
+	}
+	else {
 		cerr << "Error lista de grises " << argv[2] << endl;
 	}
 
-    origen.destruir();   // liberar memoria imagen
+  origen.destruir();   // liberar memoria imagen
 
 }

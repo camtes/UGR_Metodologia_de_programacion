@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <cstring>
 #include <iostream>
+#include <cstdlib>
 #include "../include/imagen.h"
 #include "../include/pgm.h"
 #include "../include/byte.h"
@@ -26,8 +27,7 @@ Imagen::Imagen (const Imagen & orig) {
 }
 
 Imagen::~Imagen(){
-
-        destruir();
+  destruir();
 }
 
 Imagen & Imagen::operator = (const Imagen & orig) {
@@ -38,7 +38,6 @@ Imagen & Imagen::operator = (const Imagen & orig) {
 }
 
 Imagen Imagen::operator+(const Imagen & imagen) const{
-
   int num_filas = max(filas(),imagen.filas());
   int num_columnas = columnas()+imagen.columnas();
   Imagen nueva(num_filas, num_columnas);
@@ -73,16 +72,16 @@ void Imagen::crear(int filas, int columnas){
 }
 
 void Imagen::copiar(byte * data,int f, int c) {
-    nfilas = f;
-    ncolumnas = c;
-    crear(nfilas,ncolumnas);
+  nfilas = f;
+  ncolumnas = c;
+  crear(nfilas,ncolumnas);
 
-    for (int i=0; i<ncolumnas; i++) {
-      for (int j=0;j<nfilas;j++) {
-        byte pixel = get(j,i);
-        set(j,i,pixel);
-      }
+  for (int i=0; i<ncolumnas; i++) {
+    for (int j=0;j<nfilas;j++) {
+      byte pixel = get(j,i);
+      set(j,i,pixel);
     }
+  }
 }
 
 int Imagen::filas() const{
@@ -99,7 +98,6 @@ void Imagen::set(int y, int x, byte v) {
 }
 
 byte Imagen::get(int y, int x) const{
-  // en suma.cpp devuelve solo espacios
 	return datos[ncolumnas * y + x];
 }
 
@@ -119,7 +117,6 @@ bool Imagen::leerImagen(const char nombreFichero[]) {
   if (tipo == IMG_PGM_BINARIO && nfilas*ncolumnas <= MAXPIXELS){
     crear(nfilas, ncolumnas);
     res = leerPGMBinario (nombreFichero, datos, nfilas, ncolumnas);
-
   }
 
   if (tipo == IMG_PGM_TEXTO && nfilas*ncolumnas <= MAXPIXELS){

@@ -34,7 +34,7 @@ int main(){
 			destino.set(i, j, origen.get(i+110,j+100));
     }
 	// Guardar la imagen destino en el fichero trozo.pgm
-	if (destino.escribirImagen("trozo.pgm", false)){
+	if (destino.escribirImagen("trozo.pgm", true)){
 		// si todo va bien
 		cout << "trozo.pgm guardado correctamente \n";
 		cout << "usa: display trozo.pgm para ver el resultado\n";
